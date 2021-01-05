@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 
 public enum NumberPrefixes
@@ -25,6 +24,7 @@ public enum NumberDisplayTypes
     Scientific,
     Named,
     Full,
+    NamedNoDecimals,
 
 }
 
@@ -87,17 +87,101 @@ public class IdleNumber
     public override string ToString()
     {
 
+        
+        
         if (number.Count == 1)
         {
 
-            return number[0].ToString("##0.###");
+            if (NumberDisplayType == NumberDisplayTypes.NamedNoDecimals) return ((int)(number[0] + decimals)).ToString();
+            else return (number[0] + decimals).ToString("##0.###");
 
         }
         else
         {
 
-            //ex: 946.453 K
-            return $"{number[number.Count - 1].ToString()}.{number[number.Count-2].ToString()} {GetNumberSuffix()}";
+            switch (NumberDisplayType)
+            {
+                
+                case NumberDisplayTypes.Named:
+
+                    //ex: 946.453 K
+                return $"{negative}{number[number.Count - 1]}.{number[number.Count-2]:000} {GetNumberSuffix()}";
+                case NumberDisplayTypes.Full:
+
+                    string nb = $"{negative}{number[number.Count-1]} ";
+
+                    for (int i = number.Count - 2; i > 0; i--)
+                    {
+
+                        nb += $"{number[i]:000} ";
+
+                    }
+
+                    nb += (number[0] + decimals).ToString("000.000");
+                    
+                return nb;
+                case NumberDisplayTypes.Scientific:
+
+                return $"{negative}{number[number.Count - 1]}.{number[number.Count - 2]}e{number.Count}"; //TODO Fix scientific display, currently a semi-tempate.
+                
+                case NumberDisplayTypes.NamedNoDecimals:
+                    
+                return $"{negative}{number[number.Count - 1]} {GetNumberSuffix()}";
+                
+            }
+
+            return "ohgod something happened pls report this to dev thanks!!!";
+
+        }
+    }
+    
+    public string ToString(NumberDisplayTypes displayType)
+    {
+
+        
+        
+        if (number.Count == 1)
+        {
+
+            if (displayType == NumberDisplayTypes.NamedNoDecimals) return ((int)(number[0] + decimals)).ToString();
+            else return (number[0] + decimals).ToString("##0.###");
+
+        }
+        else
+        {
+
+            switch (displayType)
+            {
+                
+                case NumberDisplayTypes.Named:
+
+                    //ex: 946.453 K
+                return $"{negative}{number[number.Count - 1]}.{number[number.Count-2]:000} {GetNumberSuffix()}";
+                case NumberDisplayTypes.Full:
+
+                    string nb = $"{negative}{number[number.Count-1]} ";
+
+                    for (int i = number.Count - 2; i > 0; i--)
+                    {
+
+                        nb += $"{number[i]:000} ";
+
+                    }
+
+                    nb += (number[0] + decimals).ToString("000.000");
+                    
+                return nb;
+                case NumberDisplayTypes.Scientific:
+
+                return $"{negative}{number[number.Count - 1]}.{number[number.Count - 2]}e{number.Count}"; //TODO Fix scientific display, currently a semi-tempate.
+                
+                case NumberDisplayTypes.NamedNoDecimals:
+                    
+                return $"{negative}{number[number.Count - 1]} {GetNumberSuffix()}";
+                
+            }
+
+            return "ohgod something happened pls report this to dev thanks!!!";
 
         }
     }
@@ -178,20 +262,31 @@ public class IdleNumber
             {
 
                 result.number[i] -= 1000;
-                //check if there is already next number, else add it
-                if (result.number.Count > i + 1)
-                {
-                    
-                    result.number[i + 1]++;
 
-                }
-                else
+                //move the number backwards to distribute the retenue
+                for (int j = i; j < result.number.Count; j++)
                 {
                     
-                    result.number.Add(1);
+                    //check if there is already next number, else add it
+                    if (result.number.Count > j + 1)
+                    {
+                    
+                        result.number[j + 1]++;
+                        if (result.number[j + 1] < 1000) break;
+                        else result.number[j + 1] -= 1000;
+
+                    }
+                    else
+                    {
+                    
+                        //this means we're done checking
+                        result.number.Add(1);
+                        break;
+
+                    }   
                     
                 }
-                
+
             }
 
         }

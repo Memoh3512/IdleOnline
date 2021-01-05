@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="username"></param>
+    /// <param name="spawnPos"></param>
     public void SpawnPlayer(int id, string username, Vector3 spawnPos)
     {
         //Debug.Log($"TRYING TO SPAWN PLAYER #{id}");
@@ -30,6 +36,7 @@ public class GameManager : MonoBehaviour
         if (id == Client.instance.myID) // si c'est le joueur local
         {
             player = GameObject.FindGameObjectWithTag("LocalPlayer");
+            SceneChanger.ChangeScene(SceneTypes.MageScreen);
         }
         else //si c'est un autre joueur
         {

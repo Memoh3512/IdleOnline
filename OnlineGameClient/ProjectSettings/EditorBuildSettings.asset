@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ConnectionScreen/ConnectionScreen.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Scenes/IdleMage/IdleMage.unity
+    guid: f5545cd1cfb3ef44f97ee691fda15339
   m_configObjects: {}
