@@ -37,10 +37,8 @@ public class OnlineConnectionManager : MonoBehaviour
     {
         
         //btnConnect.interactable = false; TODO décommenter quand tout la connection network est setuppée
-        IdleNumber test = new IdleNumber(13764356421974.7535674);
-        Debug.Log(test.ToString()); //todo remove when done testing
-        
-        
+
+
         Client.instance.ConnectToServer(ipField.text, Int32.Parse(portField.text));
 
     }

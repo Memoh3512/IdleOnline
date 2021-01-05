@@ -13,7 +13,7 @@ namespace GameServer
         spawnPlayer,
         playerDisconnected,
         playerCursorPosition,
-        IdleUpdate
+        IdleUpdate,
 
     }
 
@@ -21,7 +21,8 @@ namespace GameServer
     public enum ClientPackets
     {
         welcomeReceived = 1,
-        playerMovement
+        playerMovement,
+        BuyManaUpgrade,
     }
 
     public class Packet : IDisposable

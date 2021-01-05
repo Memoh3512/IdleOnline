@@ -36,5 +36,25 @@ namespace GameServer
 
         }
 
+        public static void BuyManaUpgrade(int fromClient, Packet packet)
+        {
+
+            ManaUpgrades upgrade = (ManaUpgrades)packet.ReadInt();
+            //write message if upgrade is bought
+            if (IdleMage.BuyManaUpgrade(upgrade))
+            {
+                
+                Console.WriteLine($"Player #{fromClient} successfully bought Mana upgrade {Enum.GetName(typeof(ManaUpgrades),upgrade)}");
+                
+            }
+            else
+            {
+                
+                Console.WriteLine($"Player #{fromClient} tried to buy Mana upgrade {Enum.GetName(typeof(ManaUpgrades),upgrade)}, but doesnt't have enough mana!");
+                
+            }
+
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,7 @@ public enum SceneTypes
     MageScreen = 2,         //TODO
     HunterScreen = 3,       //TODO
     OptionsScreen = 4,      //TODO
-    DisconnectScreen = 5,   //TODO
+    ErrorScreen = 5,        //TODO
     
     
 }
@@ -23,6 +24,15 @@ public static class SceneChanger
     {
 
         SceneManager.LoadScene((int)nextScene);
+
+    }
+
+    public static void GoToErrorScreen(string errorMessage)
+    {
+
+        ErrorMessageText.currentErrorMessage = errorMessage;
+        SceneManager.LoadScene("ErrorScreen");
+        //Debug.Log("WENT TO ERROR SCREEN!!!!");
 
     }
 

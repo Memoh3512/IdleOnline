@@ -1,0 +1,4 @@
+- Importer IdleNumber dans le Serveur
+- Changer mana pour IdleNumber
+- Coder soustraction IdleNumber
+- Créer ma propre classe math pour ajouter des op avec les IdleNumber (comme Max, Min, etc)

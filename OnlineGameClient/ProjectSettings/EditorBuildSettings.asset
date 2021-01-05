@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/IdleMage/IdleMage.unity
     guid: f5545cd1cfb3ef44f97ee691fda15339
+  - enabled: 1
+    path: Assets/Scenes/IdleHunter/IdleHunter.unity
+    guid: e6e55e8194fb06d4197c39d31bd5dac3
+  - enabled: 1
+    path: Assets/Scenes/OptionsScreen/OptionsScreen.unity
+    guid: 9f4440bf80f19f345a116f4a1668d434
+  - enabled: 1
+    path: Assets/Scenes/ErrorScreen/ErrorScreen.unity
+    guid: 08feb99b4db45e14a8e5b8ba23516af5
   m_configObjects: {}

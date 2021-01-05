@@ -28,8 +28,6 @@ public class ClientHandle : MonoBehaviour
         Vector3 position = packet.ReadVector3();
         
         GameManager.instance.SpawnPlayer(id, username, position);
-        
-        OnlineConnectionManager.instance.SetConnectionMenu(false);
 
     }
 
@@ -49,9 +47,11 @@ public class ClientHandle : MonoBehaviour
 
         double amount = packet.ReadDouble();
         double amountPerSec = packet.ReadDouble();
-
+        double max = packet.ReadDouble();
+        
         IdleValues.Mana = amount;
         IdleValues.ManaPerSecond = amountPerSec;
+        IdleValues.MaxMana = max;
 
     }
     public static void PlayerDisconnected(Packet packet)

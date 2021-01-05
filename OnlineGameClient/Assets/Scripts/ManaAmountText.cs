@@ -19,7 +19,7 @@ public class ManaAmountText : MonoBehaviour
     void Update()
     {
         
-        gui.text = $"Mana:\t\t\t{IdleValues.Mana}\nper second:\t{IdleValues.ManaPerSecond}";
+        gui.text = $"Mana:\t\t\t{IdleValues.Mana}/{IdleValues.MaxMana}\nper second:\t{IdleValues.ManaPerSecond}";
 
     }
 }

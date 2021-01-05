@@ -10,7 +10,7 @@ using UnityEngine;
         spawnPlayer,
         playerDisconnected,
         playerCursorPosition,
-        IdleUpdate,
+        IdleUpdate
         
     }
 
@@ -18,7 +18,8 @@ using UnityEngine;
     public enum ClientPackets
     {
         welcomeReceived = 1,
-        playerMovement
+        playerMovement,
+        BuyManaUpgrade,
     }
 
 public class Packet : IDisposable

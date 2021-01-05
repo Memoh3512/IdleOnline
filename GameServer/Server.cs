@@ -153,7 +153,8 @@ namespace GameServer
             {
 
                 {(int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
-                {(int)ClientPackets.playerMovement, ServerHandle.PlayerCursorMovement }
+                {(int)ClientPackets.playerMovement, ServerHandle.PlayerCursorMovement },
+                {(int)ClientPackets.BuyManaUpgrade, ServerHandle.BuyManaUpgrade}
 
             };
             Console.WriteLine("Initialized packets.");

@@ -124,7 +124,7 @@ public class Client : MonoBehaviour
             catch (Exception ex)
             {
                 
-                Debug.Log($"Error sending data to server via TCP: {ex}");
+                Debug.Log($"Error sending data to server via TCP: {ex.Message}");
                 
             }
             
@@ -139,7 +139,7 @@ public class Client : MonoBehaviour
                 int byteLength = stream.EndRead(result);
                 if (byteLength <= 0) {
 
-                    instance.Disconnect();
+                    instance.Disconnect(new Exception("Bytelength <= 0 in TCP's receiveCallback"));
                     return;
 
                 }
@@ -154,7 +154,7 @@ public class Client : MonoBehaviour
             {
 
                 //Debug.Log($"Error receiving TCP data: {ex}");
-                Disconnect();
+                Disconnect(new Exception($"Error receiving TCP data: {ex.Message}"));
 
             }
 
@@ -219,10 +219,10 @@ public class Client : MonoBehaviour
 
         }
 
-        private void Disconnect()
+        private void Disconnect(Exception ex)
         {
             
-            instance.Disconnect();
+            instance.Disconnect(ex);
             
             stream = null;
             receivedData = null;
@@ -274,7 +274,7 @@ public class Client : MonoBehaviour
             catch (Exception ex)
             {
                 
-                Debug.Log($"Error sending data to server via UDP: {ex}");
+                Debug.Log($"Error sending data to server via UDP: {ex.Message}");
                 
             }
             
@@ -291,7 +291,7 @@ public class Client : MonoBehaviour
                 if (data.Length < 4)
                 {
 
-                    instance.Disconnect();
+                    instance.Disconnect(new Exception("data length < 4 in UDP's receiveCallback"));
                     return;
 
                 }
@@ -302,7 +302,7 @@ public class Client : MonoBehaviour
             catch (Exception ex)
             {
                 
-                Disconnect();
+                Disconnect(ex);
                 
             }
             
@@ -334,10 +334,10 @@ public class Client : MonoBehaviour
             
         }
 
-        private void Disconnect()
+        private void Disconnect(Exception ex)
         {
             
-            instance.Disconnect();
+            instance.Disconnect(ex);
 
             endPoint = null;
             socket = null;
@@ -370,6 +370,22 @@ public class Client : MonoBehaviour
             tcp?.socket?.Close();
             udp?.socket?.Close();
             
+            Debug.Log("Disconnected from server.");
+
+        }
+    }
+    
+    private void Disconnect(Exception ex)
+    {
+        if (isConnected)
+        {
+
+            isConnected = false;
+            tcp?.socket?.Close();
+            udp?.socket?.Close();
+            
+            //disconnected, go to disconnect screen
+            SceneChanger.GoToErrorScreen($"Disconnected from server\n {ex.Message}");
             Debug.Log("Disconnected from server.");
 
         }

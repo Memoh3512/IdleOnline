@@ -52,5 +52,19 @@ public class ClientSend : MonoBehaviour
         
     }
 
+    public static void BuyManaUpgrade(ManaUpgrades upgrade)
+    {
+
+        using (Packet packet = new Packet((int) ClientPackets.BuyManaUpgrade))
+        {
+            
+            packet.Write((int)upgrade);
+
+            SendTCPData(packet); //tcp paske faut pas le perdre ce packet la
+
+        }
+        
+    }
+
     #endregion
 }
