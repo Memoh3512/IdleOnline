@@ -9,12 +9,12 @@ public class QuitGame : MonoBehaviour
     {
         
         
-        IdleNumber nb1 = new IdleNumber(320000000);
-        IdleNumber nb2 = new IdleNumber(999999999);
+        IdleNumber nb1 = new IdleNumber(1000000.00);
+        IdleNumber nb2 = new IdleNumber(999999.99);
 
-        IdleNumber.NumberDisplayType = NumberDisplayTypes.Named;
+        IdleNumber.NumberDisplayType = NumberDisplayTypes.Full;
         
-        Debug.Log($"nb1: {nb1.ToString()}\nb2: {nb2.ToString()}\nnb1 + nb2 = {(nb1+nb2).ToString()}");
+        Debug.Log($"nb1: {nb1.ToString()}\nb2: {nb2.ToString()}\nnb1 + nb2 = {(nb2-nb1).ToString()}");
         
     }
 

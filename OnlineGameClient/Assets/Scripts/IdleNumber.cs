@@ -219,44 +219,39 @@ public class IdleNumber
 
     public static IdleNumber operator +(IdleNumber a, IdleNumber b)
     {
-        
-        IdleNumber result;
-        IdleNumber toAdd;
-        
-        if (a.number.Count > b.number.Count)
-        {
 
-            result = a;
-            toAdd = b;
+        IdleNumber result = a;
+        int retenue;
 
-        }
-        else
-        {
-
-            result = b;
-            toAdd = a;
-
-        }
+        if (a.number.Count < b.number.Count) return b + a;
 
         //adding decimals and rounding it
-        result.decimals += toAdd.decimals;
-        if (result.decimals > 1f)
-        {
-
-            result.decimals--;
-            result.number[0]++;
-
-        }
+        result.decimals += b.decimals;
+        
+        //if nb >= 1, add the nb to the first 1k
+        retenue = (int) result.decimals;
+        result.number[0] += retenue;
+        
+        //remove the 1 if there is one
+        result.decimals %= 1f;
 
         result.decimals = Math.Round(result.decimals, 3);
+        Debug.Log($"DECIMAL RESULT = {result.decimals}");
 
+        retenue = 0;
         //add all the numbers and check if they go beyond 1k
-        for (int i = 0; i < toAdd.number.Count;  i++)//123, 456
+        for (int i = 0; i < b.number.Count;  i++)//123, 456
         {
 
             //pure add
-            result.number[i] += toAdd.number[i];
+            result.number[i] += b.number[i];
             
+            //retenue for next nb
+            retenue = (int)((float)result.number[i] / 1000f);
+            Debug.Log($"RETENUE IS {retenue}");
+            result.number[i] %= 1000;
+
+            /* OLD METHOD WITH IFs
             //check if > 1000
             if (result.number[i] >= 1000f)
             {
@@ -287,13 +282,158 @@ public class IdleNumber
                     
                 }
 
-            }
+            }*/
 
         }
+        
+        //if theres still a remainder after addition, add a new int
+        if (retenue != 0) result.number.Add(retenue);
         
         //addition is done, return
         return result;
 
     }
+
+    public static IdleNumber operator -(IdleNumber a, IdleNumber b)
+    {
+
+        IdleNumber result = a;
+        IdleNumber toAdd = b;
+        int retenue = 0;
+
+        //if a < b, then nb will be negative, so return 0
+        if (a <= b) return new IdleNumber(0);
+
+        //decimals
+        result.decimals -= toAdd.decimals;
+        if (result.decimals < 0)
+        {
+
+            result.decimals++;
+            retenue = 1;
+
+        }
+        
+        //add all the numbers and check if they go beyond 1k
+        for (int i = 0; i < result.number.Count;  i++)
+        {
+
+            //pure subtract
+            if (i < toAdd.number.Count) result.number[i] -= (toAdd.number[i] + retenue);
+            else result.number[i] -= retenue;
+            
+            if (result.number[i] < 0)
+            {
+                
+                retenue = 1;
+                result.number[i] += 1000;
+
+            }
+
+        }
+
+        result.Trim();
+
+        return result;
+
+    }
+
+    public static bool operator >(IdleNumber a, IdleNumber b)
+    {
+
+        //simple cases
+        if (a.number.Count < b.number.Count) return false;
+        if (a.number.Count > b.number.Count) return true;
+        
+        //complicated case (=)
+        for (int i = a.number.Count - 1; i >= 0; i--)
+        {
+
+            if (a.number[i] > b.number[i]) return true;
+
+        }
+
+        if (a.decimals > b.decimals) return true;
+
+        return false;
+
+    }
     
+    public static bool operator >=(IdleNumber a, IdleNumber b)
+    {
+
+        //simple cases
+        if (a.number.Count < b.number.Count) return false;
+        if (a.number.Count > b.number.Count) return true;
+        
+        //complicated case (=)
+        for (int i = a.number.Count - 1; i >= 0; i--)
+        {
+
+            if (a.number[i] > b.number[i]) return true;
+
+        }
+
+        if (a.decimals >= b.decimals) return true;
+
+        return false;
+
+    }
+    
+    public static bool operator <(IdleNumber a, IdleNumber b)
+    {
+        
+        //simple cases
+        if (a.number.Count < b.number.Count) return true;
+        if (a.number.Count > b.number.Count) return false;
+        
+        //complicated case (=)
+        for (int i = a.number.Count - 1; i >= 0; i--)
+        {
+
+            if (a.number[i] < b.number[i]) return true;
+
+        }
+
+        if (a.decimals < b.decimals) return true;
+
+        return false;
+        
+    }
+    
+    public static bool operator <=(IdleNumber a, IdleNumber b)
+    {
+        
+        //simple cases
+        if (a.number.Count < b.number.Count) return true;
+        if (a.number.Count > b.number.Count) return false;
+        
+        //complicated case (=)
+        for (int i = a.number.Count - 1; i >= 0; i--)
+        {
+
+            if (a.number[i] < b.number[i]) return true;
+
+        }
+
+        if (a.decimals <= b.decimals) return true;
+
+        return false;
+        
+    }
+
+    public void Trim()
+    {
+
+        List<int> tempNumber = number;
+        for (int i = number.Count - 1; i >= 0; i--)
+        {
+
+            if (tempNumber[i] == 0) tempNumber.Remove(i);
+            else break;
+
+        }
+        
+    }
+
 }
