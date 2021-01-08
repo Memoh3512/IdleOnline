@@ -13,9 +13,9 @@ public class IdleValues : MonoBehaviour
 {
 
     //manaValues
-    public static double Mana = 0;
-    public static double MaxMana = 0;
-    public static double ManaPerSecond = 1;
+    public static IdleNumber Mana = new IdleNumber(30);
+    public static IdleNumber MaxMana = new IdleNumber(100);
+    public static IdleNumber ManaPerSecond = IdleNumber.Zero();
     
 
 }

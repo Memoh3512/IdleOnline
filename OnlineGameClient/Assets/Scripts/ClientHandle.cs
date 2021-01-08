@@ -49,9 +49,9 @@ public class ClientHandle : MonoBehaviour
         double amountPerSec = packet.ReadDouble();
         double max = packet.ReadDouble();
         
-        IdleValues.Mana = amount;
-        IdleValues.ManaPerSecond = amountPerSec;
-        IdleValues.MaxMana = max;
+        IdleValues.Mana = new IdleNumber(amount);
+        IdleValues.ManaPerSecond = new IdleNumber(amountPerSec);
+        IdleValues.MaxMana = new IdleNumber(max);
 
     }
     public static void PlayerDisconnected(Packet packet)
