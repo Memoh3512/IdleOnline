@@ -14,7 +14,7 @@ public class QuitGame : MonoBehaviour
 
         IdleNumber.NumberDisplayType = NumberDisplayTypes.Full;
         
-        Debug.Log($"nb1: {nb1.ToString()}\nb2: {nb2.ToString()}\nnb1 + nb2 = {(nb1-nb2).ToString()}");
+        Debug.Log($"nb1: {nb1.ToString()}\nb2: {nb2.ToString()}\nnb1 + nb2 = {(nb1/84632).ToString()}");
         
     }
 

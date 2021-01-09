@@ -26,7 +26,6 @@ public enum NumberDisplayTypes
     Scientific,
     Named,
     Full,
-    NamedNoDecimals,
 
 }
 
@@ -35,7 +34,7 @@ public class IdleNumber
 {
 
     public static NumberDisplayTypes NumberDisplayType = NumberDisplayTypes.Named;
-    public const int NB_DECIMALS = 2;
+    public const int NB_DECIMALS = 4;
 
     private NumberFormatInfo formatInfo = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
     private double decimals;
@@ -78,18 +77,14 @@ public class IdleNumber
                 
                 
                 //Debug.Log($"NbSTR is {nbStr}");
-                return $"{nbStr.Split(' ')[0]}.{nbStr.Substring(2,3)} {GetNumberSuffix()}";
+                return $"{nbStr.Split(' ')[0]}.{nbStr.Substring(2,NB_DECIMALS)} {GetNumberSuffix()}";
             case NumberDisplayTypes.Full:
                 
                 return $"{nbStr}.{decimalStr}";
             case NumberDisplayTypes.Scientific:
 
-                return $"{number.ToString($"e{NB_DECIMALS}")}";//$"{negative}{number[number.Count - 1]}.{number[number.Count - 2]}e{number.Count}"; //TODO Fix scientific display, currently a semi-tempate.
-            
-            case NumberDisplayTypes.NamedNoDecimals:
-                
-                return $"{nbStr.Split(' ')[0]} {GetNumberSuffix()}";
-            
+                return $"{number.ToString($"e{NB_DECIMALS}")}"; //TODO Fix scientific display, currently a semi-tempate. Use bigInteger.Log10
+
         }
 
         return "ohgod something happened pls report this to dev thanks!!!";
@@ -137,6 +132,15 @@ public class IdleNumber
         return new IdleNumber(0);
 
     }
+
+    static void CleanDecimal(IdleNumber nb)
+    {
+
+        int toAdd = (int) nb.decimals;
+        nb.decimals %= 1f;
+        nb.number += toAdd;
+
+    }
     
     #region Operators
 
@@ -146,9 +150,8 @@ public class IdleNumber
         IdleNumber result = new IdleNumber();
         result.number = a.number + b.number;
         result.decimals = a.decimals + b.decimals;
-        int ret = (int) result.decimals;
-        result.decimals %= 1f;
-        result.number += ret;
+        
+        CleanDecimal(result);
 
         return result;
     }
@@ -195,7 +198,32 @@ public class IdleNumber
         return a.decimals < b.decimals;
 
     }
-    
+
+    public static IdleNumber operator *(IdleNumber a, int b)
+    {
+
+        IdleNumber result = new IdleNumber();
+        
+        result.number = a.number * b;
+        result.decimals = a.decimals * b;
+        
+        CleanDecimal(result);
+
+        return result;
+
+    }
+
+    public static IdleNumber operator /(IdleNumber a, int b)
+    {
+
+        IdleNumber result = new IdleNumber();
+
+        result.number = BigInteger.DivRem(a.number, b, out var rem);
+        result.decimals = (a.decimals / b) + ((double) rem / (double) b); //Convert BigInt to float, might cause problems later...
+
+        return result;
+    }
+
     #endregion
 
 }
