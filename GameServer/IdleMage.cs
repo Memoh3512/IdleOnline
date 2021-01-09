@@ -16,18 +16,18 @@ namespace GameServer
     {
 
         //mana resource
-        public static double Mana = 30; //TODO this is an IdleNumber
-        public static double ManaMax = 100; //TODO IdleNumber
-        public static double ManaPerSecond; //TODO IdleNumber
+        public static IdleNumber Mana = new IdleNumber(30);
+        public static IdleNumber ManaMax = new IdleNumber(100);
+        public static IdleNumber ManaPerSecond = IdleNumber.Zero();
         
         //mana Upgrade #1
-        static float U1PerSecBoost = 1f;//TODO IdleNumber
-        static float U1Cost = 10f;//TODO IdleNumber
+        static IdleNumber U1PerSecBoost = new IdleNumber(1);
+        private static IdleNumber U1Cost = new IdleNumber(10);
 
         public static void Update()
         {
             
-            Mana = Math.Min(Mana + (ManaPerSecond / Constants.TICKS_PER_SEC),ManaMax);
+            Mana = IdleMath.Min(Mana + (ManaPerSecond / Constants.TICKS_PER_SEC),ManaMax);
             ServerSend.UpdateIdle(Mana, ManaPerSecond, ManaMax);
             //Console.Write("Idle updated");
 
@@ -57,7 +57,7 @@ namespace GameServer
 
         }
 
-        public static bool CheckCost(float Cost)
+        public static bool CheckCost(IdleNumber Cost)
         {
 
             return Mana >= Cost;
@@ -67,7 +67,7 @@ namespace GameServer
         public static void BuyU1()
         {
 
-            Mana -= U1Cost;//TODO soustraction IdleNumber
+            Mana -= U1Cost;
             ManaPerSecond += U1PerSecBoost;
 
         }

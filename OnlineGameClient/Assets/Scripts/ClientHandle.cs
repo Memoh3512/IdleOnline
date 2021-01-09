@@ -45,13 +45,13 @@ public class ClientHandle : MonoBehaviour
     public static void UpdateMana(Packet packet)
     {
 
-        double amount = packet.ReadDouble();
-        double amountPerSec = packet.ReadDouble();
-        double max = packet.ReadDouble();
+        string amount = packet.ReadString();
+        string amountPerSec = packet.ReadString();
+        string max = packet.ReadString();
         
-        IdleValues.Mana = new IdleNumber(amount);
-        IdleValues.ManaPerSecond = new IdleNumber(amountPerSec);
-        IdleValues.MaxMana = new IdleNumber(max);
+        IdleValues.Mana = amount;
+        IdleValues.ManaPerSecond = amountPerSec;
+        IdleValues.MaxMana = max;
 
     }
     public static void PlayerDisconnected(Packet packet)

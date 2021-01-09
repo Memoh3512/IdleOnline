@@ -145,15 +145,15 @@ namespace GameServer
 
         }
 
-        public static void UpdateIdle(double mana, double manaPerSec, double maxMana)
+        public static void UpdateIdle(IdleNumber mana, IdleNumber manaPerSec, IdleNumber maxMana)
         {
 
             using (Packet packet = new Packet((int)ServerPackets.IdleUpdate))
             {
 
-                packet.Write(mana);
-                packet.Write(manaPerSec);
-                packet.Write(maxMana);
+                packet.Write(mana.ToString());
+                packet.Write(manaPerSec.ToString());
+                packet.Write(maxMana.ToString());
                 
                 SendUDPDataToAll(packet);
 

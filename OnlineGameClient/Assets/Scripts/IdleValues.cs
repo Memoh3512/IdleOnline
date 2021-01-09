@@ -12,10 +12,10 @@ public enum ManaUpgrades
 public class IdleValues : MonoBehaviour
 {
 
-    //manaValues
-    public static IdleNumber Mana = new IdleNumber(30);
-    public static IdleNumber MaxMana = new IdleNumber(100);
-    public static IdleNumber ManaPerSecond = IdleNumber.Zero();
+    //manaValues (Stored in Server, this is used for display)
+    public static string Mana = "";
+    public static string MaxMana = "";
+    public static string ManaPerSecond = "";
     
 
 }
