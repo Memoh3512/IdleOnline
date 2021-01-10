@@ -37,7 +37,8 @@ public class ClientHandle : MonoBehaviour
         int id = packet.ReadInt();
         Vector3 newCursorPos = packet.ReadVector3();
 
-        GameManager.players[id].GetComponent<PosInterpolation>().StartInterpolating(newCursorPos);
+        GameManager.players[id].GetComponent<PosInterpolation>().AddMovement(newCursorPos);
+
         //GameManager.players[id].transform.position = newCursorPos; //Old method, very laggy
 
     }

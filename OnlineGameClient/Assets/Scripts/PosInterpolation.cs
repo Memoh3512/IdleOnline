@@ -15,80 +15,79 @@ public class PosInterpolation : MonoBehaviour
     
     public InterpolationTypes interpolationMode = InterpolationTypes.Lerp;
 
-
-    public bool interpolating = false;
+    
+    public int nbPos;
     private float startTime;
-    private float endTime;
-    private Vector3 initialPos;
-    private Vector3 newPos;
+    private bool firstPos = true;
+    private Vector3 PreviousPos;
+    private Queue<Vector3> Movements;
     private Transform tf;
-    //TODO faire les positions avec une Queue pour passer d'une position à l'autre
 
     private void Awake()
     {
      
         tf = transform;
-        newPos = tf.position;
+        startTime = 0.1f;
+        Movements = new Queue<Vector3>();
+        PreviousPos = tf.position;
 
     }
     private void Update()
     {
 
-        if (interpolating)
+        if (Movements.Count > 0)
         {
 
-            if (Time.time < endTime)
-            {
+            float fraction = (Time.time - startTime) / Time.fixedDeltaTime;
+            
+            //Debug.Log($"TRYING TO MOVE OTHER PLAYER, FRACTION IS {fraction}, {Movements.Count} POS INSIDE");
 
-                float fraction = (Time.time - startTime) / Time.fixedDeltaTime;
-                //Debug.Log($"FIXEDDELTATIME IS {Time.fixedDeltaTime}");
+            if (fraction <= 1f && !firstPos)
+            {
                 
                 switch (interpolationMode)
                 {
-                
+
                     case InterpolationTypes.Lerp:
 
-                        tf.position = Vector3.Lerp(initialPos,newPos, fraction);
-                    
-                        break;
+                        tf.position = Vector3.Lerp(PreviousPos,Movements.Peek(), fraction);
+    
+                    break;
                     case InterpolationTypes.Slerp:
 
-                        tf.position = Vector3.Slerp(initialPos, newPos, fraction);
+                        tf.position = Vector3.Slerp(PreviousPos, Movements.Peek(), fraction);
+    
+                    break;
                     
-                        break;
-                
                 }
                 
-                
-
             }
             else
             {
 
-                tf.position = newPos;
-                interpolating = false;
+                if (firstPos) firstPos = false;
+                PreviousPos = Movements.Dequeue();
+                NewMovement();
 
             }
 
         }
+
+    }
+
+    //Set time-related variables when changing movement coordinates
+    public void NewMovement()
+    {
+        
+        startTime = Time.fixedTime;
         
     }
 
-    public void StartInterpolating(Vector3 newPos)
+    public void AddMovement(Vector3 movement)
     {
-
-        //set des variables pour starter l'interpolation dans Update
-        if (newPos != tf.position)
-        {
-            
-            startTime = Time.time;
-            endTime = startTime + Time.fixedDeltaTime;
-            
-            initialPos = tf.position = this.newPos;
-            this.newPos = newPos;
-            interpolating = true;   
-            
-        }
+        
+        Movements.Enqueue(movement);
+        //Debug.Log($"WE HAVE {Movements.Count} MOVEMENTS IN STOCK!!!"); //TODO Enable this debug to check if the queue risks overloading sometime, seems good for now
 
     }
 

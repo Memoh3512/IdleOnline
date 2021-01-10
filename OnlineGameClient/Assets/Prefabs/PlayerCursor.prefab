@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interpolationMode: 0
   interpolating: 0
+  nbPos: 0
 --- !u!1 &8193163788439310221
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,6 +109,7 @@ GameObject:
   - component: {fileID: 8063157247765129625}
   - component: {fileID: 5847716701730310759}
   - component: {fileID: 1453296237458236846}
+  - component: {fileID: -5503268503521742637}
   m_Layer: 0
   m_Name: PlayerCursor
   m_TagString: Player
@@ -157,7 +159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interpolationMode: 0
-  interpolating: 0
+  interpolating: 1
+  nbPos: 0
 --- !u!114 &1453296237458236846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,4 +194,16 @@ MonoBehaviour:
   - {x: -0.19545853, y: -0.79729164, z: -0.00000014901161}
   m_ShapePathHash: -736741829
   m_Mesh: {fileID: 0}
-  m_InstanceId: 17766
+  m_InstanceId: 28040
+--- !u!114 &-5503268503521742637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193163788439310221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f4c16300404dc4091179ee05d6cc7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
