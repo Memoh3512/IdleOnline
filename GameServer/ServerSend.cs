@@ -157,6 +157,21 @@ namespace GameServer
             };
 
         }*/
+
+        public static void PlayerChangedScene(Player player, int newScene)
+        {
+
+            using (Packet packet = new Packet((int) ServerPackets.ChangeScene))
+            {
+                
+             packet.Write(player.id); 
+             packet.Write(newScene);
+             
+             SendUDPDataToAll(packet, new int[]{player.id});
+                
+            };
+
+        }
         public static void PlayerCursorPosition(Player player)
         {
 

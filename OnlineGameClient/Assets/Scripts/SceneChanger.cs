@@ -25,6 +25,7 @@ public static class SceneChanger
     {
 
         SceneManager.LoadScene((int)nextScene);
+        ClientSend.ChangeScene((int)nextScene);
 
     }
 

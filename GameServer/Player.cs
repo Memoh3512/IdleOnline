@@ -32,6 +32,15 @@ namespace GameServer
 
         }
 
+        public void ChangeScene(int newScene)
+        {
+
+            currentScene = newScene;
+
+            ServerSend.PlayerChangedScene(this, newScene);
+
+        }
+
         public void Update()
         {
 

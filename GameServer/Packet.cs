@@ -16,6 +16,7 @@ namespace GameServer
         LogInFailed,
         ToLoginScreen,
         LoginSuccessful,
+        ChangeScene,
 
     }
 
@@ -27,6 +28,8 @@ namespace GameServer
         playerMovement,
         BuyManaUpgrade,
         ManualSave,
+        ChangeScene,
+        
     }
 
     public class Packet : IDisposable

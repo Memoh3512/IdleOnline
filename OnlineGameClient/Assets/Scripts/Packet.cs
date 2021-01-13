@@ -13,6 +13,7 @@ using UnityEngine;
         LogInFailed,
         ToLoginScreen,
         LoginSuccessful,
+        ChangeScene,
 
     }
 
@@ -25,6 +26,8 @@ using UnityEngine;
         playerMovement,
         BuyManaUpgrade,
         ManualSave,
+        ChangeScene,
+        
     }
 
 public class Packet : IDisposable

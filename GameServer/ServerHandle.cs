@@ -80,6 +80,15 @@ namespace GameServer
             
         }
 
+        public static void PlayerChangedScene(int fromClient, Packet packet)
+        {
+
+            int newScene = packet.ReadInt();
+
+            Server.clients[fromClient].player.ChangeScene(newScene);
+
+        }
+
         public static void PlayerCursorMovement(int fromClient, Packet packet)
         {
 
