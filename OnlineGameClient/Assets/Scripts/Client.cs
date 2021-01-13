@@ -19,6 +19,7 @@ public class Client : MonoBehaviour
     public UDP udp;
 
     public bool isConnected = false;
+    public bool isLoggedIn = false;
     private delegate void PacketHandler(Packet packet);
 
     private static Dictionary<int, PacketHandler> packetHandlers;
@@ -352,10 +353,12 @@ public class Client : MonoBehaviour
         packetHandlers = new Dictionary<int, PacketHandler>()
         {
             {(int)ServerPackets.welcome, ClientHandle.Welcome},
-            {(int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer},
             {(int)ServerPackets.playerCursorPosition, ClientHandle.PlayerCursorPosition},
             {(int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected},
-            {(int)ServerPackets.IdleUpdate,ClientHandle.UpdateMana}
+            {(int)ServerPackets.IdleUpdate,ClientHandle.UpdateMana},
+            {(int)ServerPackets.LogInFailed,ClientHandle.LoginFailed},
+            {(int)ServerPackets.ToLoginScreen,ClientHandle.ToLoginScreen},
+            {(int)ServerPackets.LoginSuccessful, ClientHandle.SpawnPlayer},//TODO CHange spawnPlayer to change scene and login and stuff
         };
         Debug.Log("Initialized Packets.");
 

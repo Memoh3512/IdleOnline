@@ -14,20 +14,22 @@ public class ClientHandle : MonoBehaviour
         
         Debug.Log($"Message from server: {msg}");
         Client.instance.myID = myId;
-        ClientSend.WelcomeReceived();
         
+        ClientSend.WelcomeReceived();
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
-
     }
+    
 
     public static void SpawnPlayer(Packet packet)
     {
 
         int id = packet.ReadInt();
         string username = packet.ReadString();
-        Vector3 position = packet.ReadVector3();
+        bool firstTime = packet.ReadBool();
+
+        Client.instance.isLoggedIn = true;
         
-        GameManager.instance.SpawnPlayer(id, username, position);
+        GameManager.instance.SpawnPlayer(id, username, firstTime);
 
     }
 
@@ -61,6 +63,21 @@ public class ClientHandle : MonoBehaviour
         int id = packet.ReadInt();
         Destroy(GameManager.players[id].gameObject);
         GameManager.players.Remove(id);
+
+    }
+
+    public static void ToLoginScreen(Packet packet)
+    {
+        
+        OnlineConnectionManager.instance.SwitchMenu();
+        
+    }
+
+    public static void LoginFailed(Packet packet)
+    {
+
+        string msg = packet.ReadString();
+        Debug.Log(msg);
 
     }
 

@@ -10,10 +10,12 @@ namespace GameServer
     public enum ServerPackets
     {
         welcome = 1,
-        spawnPlayer,
         playerDisconnected,
         playerCursorPosition,
         IdleUpdate,
+        LogInFailed,
+        ToLoginScreen,
+        LoginSuccessful,
 
     }
 
@@ -21,6 +23,7 @@ namespace GameServer
     public enum ClientPackets
     {
         welcomeReceived = 1,
+        Login,
         playerMovement,
         BuyManaUpgrade,
     }

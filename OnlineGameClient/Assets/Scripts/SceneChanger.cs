@@ -13,6 +13,7 @@ public enum SceneTypes
     HunterScreen = 3,       //TODO
     OptionsScreen = 4,      //TODO
     ErrorScreen = 5,        //TODO
+    TeamSelectionScreen = 6,//TODO
     
     
 }

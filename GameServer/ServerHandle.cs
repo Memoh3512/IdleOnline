@@ -13,17 +13,60 @@ namespace GameServer
 
             int clientIdCheck = packet.ReadInt();
             string username = packet.ReadString();
-
+            string password = packet.ReadString();
+            
+            //Connection successful
             Console.WriteLine($"{Server.clients[fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully as player #{fromClient}.");
-            if (fromClient != clientIdCheck)
+            
+            //activer le login Screen
+            Server.clients[fromClient].ToLoginScreen();
+
+        }
+
+        public static void Login(int fromClient, Packet packet)
+        {
+            
+            //TODO Check login and ENCRYPT
+            string username = packet.ReadString();
+            string password = packet.ReadString();
+
+            Dictionary<string, string> users = Program.saveData.users;
+            if (users.ContainsKey(username))
             {
 
-                Console.WriteLine($"Player \"{username}\" (ID: {fromClient}) has assumed the wrong client ID ({clientIdCheck})! If you see this, something went very very wrong.");
-
+                if (users[username] == password)
+                {
+                    
+                    Server.clients[fromClient].LoginSuccessful(username,false);
+                    
+                }
+                else
+                {
+                    
+                    ServerSend.LoginFailed(fromClient, "Incorrect password!");
+                    
+                }
+                
             }
+            else
+            {
 
-            //send le joueur dans le jeu
-            Server.clients[fromClient].SendIntoGame(username);
+                if (users.Count >= Server.MaxPlayers)
+                {
+                    
+                    ServerSend.LoginFailed(fromClient, "Server full!!!! pls make this string more detailed");
+                    
+                }
+                else
+                {
+                    
+                    //new user
+                    Program.saveData.users.Add(username, password);
+                    Server.clients[fromClient].LoginSuccessful(username,true);
+                    
+                }
+                
+            }
 
         }
 

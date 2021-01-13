@@ -7,17 +7,21 @@ using UnityEngine;
     public enum ServerPackets
     {
         welcome = 1,
-        spawnPlayer,
         playerDisconnected,
         playerCursorPosition,
-        IdleUpdate
-        
+        IdleUpdate,
+        LogInFailed,
+        ToLoginScreen,
+        LoginSuccessful,
+
     }
+
 
     /// <summary>Sent from client to server.</summary>
     public enum ClientPackets
     {
         welcomeReceived = 1,
+        Login,
         playerMovement,
         BuyManaUpgrade,
     }

@@ -10,13 +10,17 @@ public class OnlineConnectionManager : MonoBehaviour
 
     public static OnlineConnectionManager instance;
 
+    
 
-    public GameObject connectionPanel;
-    public TMP_InputField usernameField;
     public TMP_InputField ipField;
     public TMP_InputField portField;
-    public Button btnConnect;
     
+    public TMP_InputField usernameField;
+    public TMP_InputField passwordField;
+
+    public GameObject ConnectionMenu;
+    public GameObject LogInMenu;
+
     private void Awake()
     {
         if (instance == null)
@@ -33,6 +37,13 @@ public class OnlineConnectionManager : MonoBehaviour
         }
     }
 
+    public void Login()
+    {
+
+        ClientSend.Login(usernameField.text, passwordField.text);
+
+    }
+
     public void ConnectToServer()
     {
         
@@ -43,24 +54,12 @@ public class OnlineConnectionManager : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// sets the visibility of the connection menu
-    /// </summary>
-    /// <param name="active">Is the menu visible or not</param>
-    public void SetConnectionMenu(bool active)
+    public void SwitchMenu()
     {
         
-        //Debug.Log("CLOSE MENU????");
-        connectionPanel.SetActive(active);
-        usernameField.interactable = active;
-
-    }
-
-    public void ResetBtn()
-    {
-
-        btnConnect.interactable = true;
-
+        ConnectionMenu.SetActive(false);
+        LogInMenu.SetActive(true);
+        
     }
 
 }

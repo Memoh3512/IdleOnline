@@ -101,7 +101,48 @@ namespace GameServer
 
         }
 
-        public static void SpawnPlayer(int toClient, Player player)
+        public static void ToLoginScreen(int toClient)
+        {
+
+            using (Packet packet = new Packet((int) ServerPackets.ToLoginScreen))
+            {
+                
+             SendTCPData(toClient, packet);   
+                
+            };
+
+        }
+
+        public static void LoginFailed(int toClient, string msg)
+        {
+
+            using (Packet packet = new Packet((int) ServerPackets.LogInFailed))
+            {
+                
+             packet.Write($"Login failed: {msg}");
+             
+             SendTCPData(toClient, packet);
+             
+            };
+
+        }
+
+        public static void LoginSuccessful(int toClient,string username, bool firstTime)
+        {
+
+            using (Packet packet = new Packet((int) ServerPackets.LoginSuccessful))
+            {
+                packet.Write(toClient);
+                packet.Write(username);
+                packet.Write(firstTime);
+
+                SendTCPData(toClient, packet);
+                
+            }
+            
+        }
+
+        /*public static void SpawnPlayer(int toClient, Player player)
         {
 
             using (Packet packet = new Packet((int)ServerPackets.spawnPlayer))
@@ -115,7 +156,7 @@ namespace GameServer
 
             };
 
-        }
+        }*/
         public static void PlayerCursorPosition(Player player)
         {
 

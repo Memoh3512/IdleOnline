@@ -30,10 +30,26 @@ public class ClientSend : MonoBehaviour
 
             packet.Write(Client.instance.myID);
             packet.Write(OnlineConnectionManager.instance.usernameField.text);
+            packet.Write(OnlineConnectionManager.instance.passwordField.text); //TODO Hash encrypt password and username
             
             SendTCPData(packet);
 
         }
+
+    }
+
+    public static void Login(string username, string password)
+    {
+
+        using (Packet packet = new Packet((int) ClientPackets.Login))
+        {
+            
+         packet.Write(username);
+         packet.Write(password);
+         
+         SendTCPData(packet);
+            
+        };
 
     }
 

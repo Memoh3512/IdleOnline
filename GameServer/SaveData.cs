@@ -13,7 +13,7 @@ namespace GameServer
         public DateTime lastSaved = DateTime.Now;
         
         //Username, Password
-        public static Dictionary<string, string> users;
+        public Dictionary<string, string> users;
         
         //Idle-related objects
         public IdleMage idleMage;
@@ -91,7 +91,7 @@ namespace GameServer
             SaveGameData();
 
         }
-        
+
 
     }
 }

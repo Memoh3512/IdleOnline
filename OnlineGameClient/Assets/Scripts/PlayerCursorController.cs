@@ -43,7 +43,7 @@ public class PlayerCursorController : MonoBehaviour
         if (Client.instance != null)
         {
             
-            if (Client.instance.isConnected)
+            if (Client.instance.isLoggedIn)
             {
             
                 SendCursorPosToServer();   

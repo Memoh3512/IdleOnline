@@ -29,18 +29,22 @@ public class GameManager : MonoBehaviour
     /// <param name="id"></param>
     /// <param name="username"></param>
     /// <param name="spawnPos"></param>
-    public void SpawnPlayer(int id, string username, Vector3 spawnPos)
+    public void SpawnPlayer(int id, string username, bool firstTime)
     {
         //Debug.Log($"TRYING TO SPAWN PLAYER #{id}");
         GameObject player;
         if (id == Client.instance.myID) // si c'est le joueur local
         {
             player = GameObject.FindGameObjectWithTag("LocalPlayer");
-            SceneChanger.ChangeScene(SceneTypes.MageScreen);
+            
+            //go to proper scene if its first time or not
+            if (firstTime) SceneChanger.ChangeScene(SceneTypes.TeamSelectionScreen);
+            else SceneChanger.ChangeScene(SceneTypes.MageScreen);
+
         }
         else //si c'est un autre joueur
         {
-            player = Instantiate(playerCursorPrefab, spawnPos, Quaternion.identity);
+            player = Instantiate(playerCursorPrefab, Vector3.zero, Quaternion.identity);
         }
 
         player.GetComponent<PlayerManager>().id = id;

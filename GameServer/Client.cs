@@ -241,10 +241,26 @@ namespace GameServer
 
         }
 
-        public void SendIntoGame(string playerName)
+        public void ToLoginScreen()
         {
 
-            player = new Player(id, playerName, new Vector3(0, 0, 0));
+            ServerSend.ToLoginScreen(id);
+
+        }
+
+        public void LoginSuccessful(string username, bool firstTime)
+        {
+            
+            player = new Player(id, username, Vector3.Zero);
+            
+            ServerSend.LoginSuccessful(id,username,firstTime);
+            
+        }
+        
+        /*public void SendIntoGame(string username)
+        {
+
+            player = new Player(id, $"player{id}", new Vector3(0, 0, 0));
 
             foreach (Client client in Server.clients.Values)
             {
@@ -275,7 +291,7 @@ namespace GameServer
 
             }
 
-        }
+        }*/
 
         private void Disconnect()
         {
