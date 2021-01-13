@@ -38,8 +38,20 @@ public class GameManager : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("LocalPlayer");
             
             //go to proper scene if its first time or not
-            if (firstTime) SceneChanger.ChangeScene(SceneTypes.TeamSelectionScreen);
-            else SceneChanger.ChangeScene(SceneTypes.MageScreen);
+            if (firstTime)
+            {
+                
+                //trigger manual save so new user is registered
+                ClientSend.ManualSave();
+                SceneChanger.ChangeScene(SceneTypes.TeamSelectionScreen);
+                
+            }
+            else
+            {
+                
+                SceneChanger.ChangeScene(SceneTypes.MageScreen);
+                
+            }
 
         }
         else //si c'est un autre joueur

@@ -26,7 +26,6 @@ namespace GameServer
         public static void Login(int fromClient, Packet packet)
         {
             
-            //TODO Check login and ENCRYPT
             string username = packet.ReadString();
             string password = packet.ReadString();
 
@@ -60,14 +59,25 @@ namespace GameServer
                 else
                 {
                     
-                    //new user
+                    //new user, add and save so it's properly registered
                     Program.saveData.users.Add(username, password);
+                    Program.saveData.SaveGameData();
+
+                    Console.Write($"New user Connected! Welcome, {username}");
+                    //successful login
                     Server.clients[fromClient].LoginSuccessful(username,true);
                     
                 }
                 
             }
 
+        }
+
+        public static void ManualSave(int fromClient, Packet packet)
+        {
+            
+            Program.saveData.SaveGameData();
+            
         }
 
         public static void PlayerCursorMovement(int fromClient, Packet packet)

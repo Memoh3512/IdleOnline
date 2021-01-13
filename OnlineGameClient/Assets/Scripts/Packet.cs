@@ -24,6 +24,7 @@ using UnityEngine;
         Login,
         playerMovement,
         BuyManaUpgrade,
+        ManualSave,
     }
 
 public class Packet : IDisposable

@@ -26,6 +26,7 @@ namespace GameServer
         Login,
         playerMovement,
         BuyManaUpgrade,
+        ManualSave,
     }
 
     public class Packet : IDisposable

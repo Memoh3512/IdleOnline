@@ -40,7 +40,8 @@ public class OnlineConnectionManager : MonoBehaviour
     public void Login()
     {
 
-        ClientSend.Login(usernameField.text, passwordField.text);
+        Debug.Log($"Encryption\nUsername : {usernameField.text}\nPassword: {Encrypter.EncryptData(passwordField.text)}");
+        ClientSend.Login(usernameField.text, Encrypter.EncryptData(passwordField.text));
 
     }
 

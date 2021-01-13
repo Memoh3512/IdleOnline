@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace GameServer
@@ -22,31 +23,34 @@ namespace GameServer
         
         public void SaveGameData()
         {
+            
+            FileStream stream = new FileStream(savePath, FileMode.Create);
+            
             try
             {
 
-                //Saving all data objects used for the game
-                using (Stream stream = File.Open(savePath,FileMode.Append))
-                {
-                    
-                    //setupping formatter for binary save
-                    var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                
-                    //saving user credentials
-                    binaryFormatter.Serialize(stream, users);
-                
-                    //saving Mage stuff
-                    binaryFormatter.Serialize(stream, idleMage);
+                //setupping formatter for binary save
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-                }
-                
+                //saving user credentials
+                binaryFormatter.Serialize(stream, users);
+
+                //saving Mage stuff
+                binaryFormatter.Serialize(stream, idleMage);
+
                 lastSaved = DateTime.Now;
 
             }
             catch (Exception e)
             {
-                
+
                 Console.WriteLine($"Error writing to save File: {e}");
+
+            }
+            finally
+            {
+                
+                stream.Close();
                 
             }
 
@@ -54,30 +58,37 @@ namespace GameServer
 
         public void LoadGameData()
         {
+
+            FileStream stream = new FileStream(savePath, FileMode.Open);
             
             try
             {
 
-                using (Stream stream = File.Open(savePath, FileMode.Open))
-                {
-                    //setupping formatter for loading data
-                    var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                //setupping formatter for loading data
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-                    //loading user credentials
-                    users = (Dictionary<string,string>)binaryFormatter.Deserialize(stream);
-                    
-                    //loading Mage stuff
-                    idleMage = (IdleMage)binaryFormatter.Deserialize(stream);
-                    
-                }
+                //loading user credentials
+                users = (Dictionary<string, string>) binaryFormatter.Deserialize(stream);
+
+                //loading Mage stuff
+                idleMage = (IdleMage) binaryFormatter.Deserialize(stream);
+
+                Console.WriteLine(
+                    $"\nSave file stuff:\nUsers size: {users.Count}\nUser #1: {users.FirstOrDefault().Key}\nIdleMage, ManaPerSec: {idleMage.ManaPerSecond}\n");
 
             }
             catch (Exception e)
             {
-                
+
                 Console.WriteLine($"Error reading from save File: {e}");
-                
-            } 
+
+            }
+            finally
+            {
+
+                stream.Close();
+
+            }
             
         }
 

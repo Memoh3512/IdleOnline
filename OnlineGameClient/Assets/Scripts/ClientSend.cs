@@ -53,6 +53,18 @@ public class ClientSend : MonoBehaviour
 
     }
 
+    public static void ManualSave()
+    {
+
+        using (Packet packet = new Packet((int) ClientPackets.ManualSave))
+        {
+            
+            SendTCPData(packet);
+            
+        }
+        
+    }
+
     public static void SendCursorPosToServer(Vector3 position)
     {
         
