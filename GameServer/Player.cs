@@ -12,6 +12,7 @@ namespace GameServer
         public string username;
 
         public Vector3 cursorPosition;
+        public int currentScene; //TODO Implement
 
         public Player(int _id, string _username, Vector3 spawnPos)
         {

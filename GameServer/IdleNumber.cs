@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 
+[Serializable]
 public enum NumberPrefixes
 {
     
@@ -17,7 +18,7 @@ public enum NumberPrefixes
     Sep = 9,
 
 }
-
+[Serializable]
 public enum NumberDisplayTypes
 {
     
@@ -28,13 +29,17 @@ public enum NumberDisplayTypes
 }
 
 //New try at IdleNumber with BigIntegers
+[Serializable]
 public class IdleNumber
 {
 
+    [NonSerialized]
     public static NumberDisplayTypes NumberDisplayType = NumberDisplayTypes.Named;
     public const int NB_DECIMALS = 2;
 
-    private NumberFormatInfo formatInfo = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
+    [NonSerialized]
+    private static NumberFormatInfo formatInfo = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
+    
     private double decimals;
     private BigInteger number = 0;
 
@@ -165,7 +170,7 @@ public class IdleNumber
         return new IdleNumber(0);
 
     }
-
+    
     static void CleanDecimal(IdleNumber nb)
     {
 

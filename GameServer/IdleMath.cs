@@ -13,7 +13,7 @@
         
         public static IdleNumber Min(IdleNumber a, IdleNumber b)
         {
-
+            
             if (a < b) return a;
             return b;
 

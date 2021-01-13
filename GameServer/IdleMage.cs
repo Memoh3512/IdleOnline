@@ -5,26 +5,27 @@ using System.Text;
 namespace GameServer
 {
 
+    [Serializable]
     public enum ManaUpgrades
     {
         
         Upgrade1 = 1,
         
     }
-    
-    class IdleMage
+    [Serializable]
+    public class IdleMage
     {
 
         //mana resource
-        public static IdleNumber Mana = new IdleNumber(30);
-        public static IdleNumber ManaMax = new IdleNumber(100);
-        public static IdleNumber ManaPerSecond = IdleNumber.Zero();
+        public IdleNumber Mana = new IdleNumber(30);
+        public IdleNumber ManaMax = new IdleNumber(100);
+        public IdleNumber ManaPerSecond = IdleNumber.Zero();
         
         //mana Upgrade #1
-        static IdleNumber U1PerSecBoost = new IdleNumber(1);
-        private static IdleNumber U1Cost = new IdleNumber(10);
+        IdleNumber U1PerSecBoost = new IdleNumber(1);
+        private IdleNumber U1Cost = new IdleNumber(10);
 
-        public static void Update()
+        public void Update()
         {
             
             Mana = IdleMath.Min(Mana + (ManaPerSecond / Constants.TICKS_PER_SEC),ManaMax);
@@ -33,7 +34,7 @@ namespace GameServer
 
         }
 
-        public static bool BuyManaUpgrade(ManaUpgrades upgradeType)
+        public bool BuyManaUpgrade(ManaUpgrades upgradeType)
         {
 
             switch (upgradeType)
@@ -57,14 +58,14 @@ namespace GameServer
 
         }
 
-        public static bool CheckCost(IdleNumber Cost)
+        public bool CheckCost(IdleNumber Cost)
         {
 
             return Mana >= Cost;
 
         }
 
-        public static void BuyU1()
+        public void BuyU1()
         {
 
             Mana -= U1Cost;

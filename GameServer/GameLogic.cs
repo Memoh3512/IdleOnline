@@ -23,7 +23,7 @@ namespace GameServer
             }
 
             //update le idle
-            IdleMage.Update();
+            Program.saveData.idleMage.Update();
 
             ThreadManager.UpdateMain();
 

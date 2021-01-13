@@ -41,7 +41,7 @@ namespace GameServer
 
             ManaUpgrades upgrade = (ManaUpgrades)packet.ReadInt();
             //write message if upgrade is bought
-            if (IdleMage.BuyManaUpgrade(upgrade))
+            if (Program.saveData.idleMage.BuyManaUpgrade(upgrade))
             {
                 
                 Console.WriteLine($"Player #{fromClient} successfully bought Mana upgrade {Enum.GetName(typeof(ManaUpgrades),upgrade)}");

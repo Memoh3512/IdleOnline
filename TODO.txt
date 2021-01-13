@@ -1,6 +1,12 @@
-- Importer IdleNumber dans le Serveur
+Done - Importer IdleNumber dans le Serveur
 Done - Changer mana pour IdleNumber dans le client
-- Changer mana pour IdleNumber dans le serveur
+Done - Changer mana pour IdleNumber dans le serveur
 Done - Coder soustraction IdleNumber
-- *, % IdleNumber
-- Créer ma propre classe math pour ajouter des op avec les IdleNumber (comme Max, Min, etc)
+Done - *, % IdleNumber
+Done - Créer ma propre classe math pour ajouter des op avec les IdleNumber (comme Max, Min, etc)
+
+
+- Track les changements de scènes des curseurs pour seulement les afficher dans la bonne scène
+- First time connection (Setup Name and Password, choose team...)
+- Save player information
+- Auto-Connect and remember server/credentials (encrypt data!)
