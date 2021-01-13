@@ -66,22 +66,6 @@ public class ClientHandle : MonoBehaviour
 
     }
 
-    public static void PlayerChangedScene(Packet packet)
-    {
-
-        int id = packet.ReadInt();
-        int newScene = packet.ReadInt();
-
-        if (id != Client.instance.myID)
-        {
-            
-            GameManager.players[id].ChangeScene(newScene);   
-            
-        }
-
-
-    }
-
     public static void ToLoginScreen(Packet packet)
     {
         

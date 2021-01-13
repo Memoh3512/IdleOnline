@@ -65,20 +65,6 @@ public class ClientSend : MonoBehaviour
         
     }
 
-    public static void ChangeScene(int newScene)
-    {
-
-        using (Packet packet = new Packet((int) ClientPackets.ChangeScene))
-        {
-            
-            packet.Write(newScene);
-            
-            SendTCPData(packet);
-            
-        };
-
-    }
-
     public static void SendCursorPosToServer(Vector3 position)
     {
         
