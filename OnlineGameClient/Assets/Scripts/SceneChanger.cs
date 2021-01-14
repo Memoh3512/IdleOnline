@@ -44,7 +44,7 @@ public static class SceneChanger
         foreach (var player in GameManager.players.Values)
         {
             
-            if (player.id != Client.instance.myID) player.GetComponent<SceneTracker>().CheckVisible((int)nextScene);
+            if (player.id != Client.GetMyId()) player.GetComponent<SceneTracker>().CheckVisible((int)nextScene);
             
         }
 

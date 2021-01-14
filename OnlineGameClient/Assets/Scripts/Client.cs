@@ -12,9 +12,9 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBufferSize = 4096;
     
-    public string ip = "127.0.0.1";
-    public int port = 25565;
-    public int myID = 0;
+    private string ip = "127.0.0.1";
+    private int port = 25565;
+    private int myID = 0;
     public TCP tcp;
     public UDP udp;
 
@@ -66,6 +66,13 @@ public class Client : MonoBehaviour
         isConnected = true;
 
         tcp.Connect();
+
+    }
+
+    public static int GetMyId()
+    {
+
+        return instance.myID;
 
     }
 

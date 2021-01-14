@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log($"TRYING TO SPAWN PLAYER #{id}");
         GameObject player;
-        if (id == Client.instance.myID) // si c'est le joueur local
+        if (id == Client.GetMyId()) // si c'est le joueur local
         {
             player = GameObject.FindGameObjectWithTag("LocalPlayer");
 

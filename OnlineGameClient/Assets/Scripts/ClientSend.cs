@@ -28,7 +28,7 @@ public class ClientSend : MonoBehaviour
         using (Packet packet = new Packet((int)ClientPackets.welcomeReceived))
         {
 
-            packet.Write(Client.instance.myID);
+            packet.Write(Client.GetMyId());
             packet.Write(OnlineConnectionManager.instance.usernameField.text);
             packet.Write(OnlineConnectionManager.instance.passwordField.text); //TODO Hash encrypt password and username
             
