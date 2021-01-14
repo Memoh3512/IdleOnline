@@ -63,7 +63,7 @@ namespace GameServer
                     Program.saveData.users.Add(username, password);
                     Program.saveData.SaveGameData();
 
-                    Console.Write($"New user Connected! Welcome, {username}");
+                    Console.WriteLine($"New user Connected! Welcome, {username}");
                     //successful login
                     Server.clients[fromClient].LoginSuccessful(username,true);
                     
@@ -73,6 +73,15 @@ namespace GameServer
 
         }
 
+        public static void PlayerChangedScene(int fromClient, Packet packet)
+        {
+
+            int newScene = packet.ReadInt();
+
+            Server.clients[fromClient].player.SetCurrentScene(newScene);
+
+        }
+        
         public static void ManualSave(int fromClient, Packet packet)
         {
             

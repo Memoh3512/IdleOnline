@@ -24,6 +24,20 @@ public static class SceneChanger
     public static void ChangeScene(SceneTypes nextScene)
     {
 
+        //if connected, tell server we changed scene
+        if (Client.instance != null)
+        {
+
+            if (Client.instance.isLoggedIn)
+            {
+
+                ClientSend.ChangedScene((int) nextScene);
+
+            }
+            
+        }
+        
+        //Change scene
         SceneManager.LoadScene((int)nextScene);
 
     }

@@ -15,6 +15,8 @@ namespace GameServer
         public TCP tcp;
         public UDP udp;
 
+        public bool isLoggedIn = false;
+
         public Client (int _clientId)
         {
 
@@ -253,45 +255,18 @@ namespace GameServer
             
             player = new Player(id, username, Vector3.Zero);
             
+            LogIn();
+            
             ServerSend.LoginSuccessful(id,username,firstTime);
             
         }
-        
-        /*public void SendIntoGame(string username)
+
+        public void LogIn()
         {
+            
+            isLoggedIn = true;
 
-            player = new Player(id, $"player{id}", new Vector3(0, 0, 0));
-
-            foreach (Client client in Server.clients.Values)
-            {
-
-                if (client.player != null) // si le joueur est connecté
-                {
-
-                    if (client.id != id)
-                    {
-
-                        ServerSend.SpawnPlayer(id, client.player);
-
-                    }
-
-                }
-
-            }
-
-            foreach (Client client in Server.clients.Values)
-            {
-
-                if (client.player != null)
-                {
-
-                    ServerSend.SpawnPlayer(client.id, player);
-
-                }
-
-            }
-
-        }*/
+        }
 
         private void Disconnect()
         {

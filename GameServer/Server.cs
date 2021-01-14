@@ -156,10 +156,31 @@ namespace GameServer
                 {(int)ClientPackets.playerMovement, ServerHandle.PlayerCursorMovement },
                 {(int)ClientPackets.BuyManaUpgrade, ServerHandle.BuyManaUpgrade},
                 {(int)ClientPackets.Login, ServerHandle.Login},
-                {(int)ClientPackets.ManualSave, ServerHandle.ManualSave}
+                {(int)ClientPackets.ManualSave, ServerHandle.ManualSave},
+                {(int)ClientPackets.playerChangeScene, ServerHandle.PlayerChangedScene}
 
             };
             Console.WriteLine("Initialized packets.");
+
+        }
+
+        public static int[] GetNotLoggedPlayers(bool addSelf = false, int selfId = 1)
+        {
+
+            List<int> res = new List<int>();
+            foreach (Client cl in clients.Values)
+            {
+                
+                if (!cl.isLoggedIn) res.Add(cl.id);
+                
+            }
+
+            if (addSelf)
+            {
+                if (!res.Contains(selfId)) res.Add(selfId);
+            }
+
+            return res.ToArray();
 
         }
 

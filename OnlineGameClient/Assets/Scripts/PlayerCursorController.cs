@@ -8,7 +8,6 @@ public class PlayerCursorController : MonoBehaviour
     private bool visible = false;
     private bool following = true;
 
-
     private void Start()
     {
         Cursor.visible = visible;
@@ -62,5 +61,5 @@ public class PlayerCursorController : MonoBehaviour
         ClientSend.SendCursorPosToServer(cursorPos);
 
     }
-    
+
 }

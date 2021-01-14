@@ -286,6 +286,7 @@ public class Client : MonoBehaviour
 
             try
             {
+                
                 byte[] data = socket.EndReceive(result, ref endPoint);
                 socket.BeginReceive(ReceiveCallback, null);
 
@@ -359,6 +360,7 @@ public class Client : MonoBehaviour
             {(int)ServerPackets.LogInFailed,ClientHandle.LoginFailed},
             {(int)ServerPackets.ToLoginScreen,ClientHandle.ToLoginScreen},
             {(int)ServerPackets.LoginSuccessful, ClientHandle.SpawnPlayer},//TODO CHange spawnPlayer to change scene and login and stuff
+            {(int)ServerPackets.playerChangeScene, ClientHandle.PlayerChangedScene},
         };
         Debug.Log("Initialized Packets.");
 

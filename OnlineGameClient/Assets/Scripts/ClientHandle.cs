@@ -33,13 +33,29 @@ public class ClientHandle : MonoBehaviour
 
     }
 
+    public static void PlayerChangedScene(Packet packet)
+    {
+
+        int id = packet.ReadInt();
+        int newScene = packet.ReadInt();
+
+        GameManager.players[id].GetComponent<SceneTracker>().SetCurrentScene(newScene);
+
+    }
+
     public static void PlayerCursorPosition(Packet packet)
     {
         
         int id = packet.ReadInt();
         Vector3 newCursorPos = packet.ReadVector3();
 
-        GameManager.players[id].GetComponent<PosInterpolation>().AddMovement(newCursorPos);
+        //if to fix crash when we are connected but not logging in so we are receiving all cmds 
+        if (GameManager.players.ContainsKey(id)) 
+        {
+            
+            GameManager.players[id].GetComponent<PosInterpolation>().AddMovement(newCursorPos);
+            
+        }
 
         //GameManager.players[id].transform.position = newCursorPos; //Old method, very laggy
 

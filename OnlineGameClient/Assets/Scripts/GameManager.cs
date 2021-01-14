@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         }
         else //si c'est un autre joueur
         {
+            Debug.Log("OTHER PLAYER JOINED!!!!!");
             player = Instantiate(playerCursorPrefab, Vector3.zero, Quaternion.identity);
         }
 

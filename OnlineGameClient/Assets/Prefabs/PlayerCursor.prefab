@@ -430,6 +430,7 @@ GameObject:
   - component: {fileID: 5847716701730310759}
   - component: {fileID: 1453296237458236846}
   - component: {fileID: -5503268503521742637}
+  - component: {fileID: 6849791299102664930}
   m_Layer: 0
   m_Name: PlayerCursor
   m_TagString: Player
@@ -514,7 +515,7 @@ MonoBehaviour:
   - {x: -0.19545853, y: -0.79729164, z: -0.00000014901161}
   m_ShapePathHash: -736741829
   m_Mesh: {fileID: 0}
-  m_InstanceId: 19776
+  m_InstanceId: 30324
 --- !u!114 &-5503268503521742637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,3 +528,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f4c16300404dc4091179ee05d6cc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6849791299102664930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193163788439310221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58bcc350610f33a44804d69666b039a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentScene: 0
+  renderer: {fileID: 7863266476146058884}

@@ -53,6 +53,20 @@ public class ClientSend : MonoBehaviour
 
     }
 
+    public static void ChangedScene(int newScene)
+    {
+
+        using (Packet packet = new Packet((int) ClientPackets.playerChangeScene))
+        {
+            
+         packet.Write(newScene);
+         
+         SendTCPData(packet);
+            
+        };
+
+    }
+
     public static void ManualSave()
     {
 

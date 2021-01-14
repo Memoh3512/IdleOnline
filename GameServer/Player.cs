@@ -12,8 +12,8 @@ namespace GameServer
         public string username;
 
         public Vector3 cursorPosition;
-        public int currentScene; //TODO Implement
-
+        public int currentScene;
+        
         public Player(int _id, string _username, Vector3 spawnPos)
         {
 
@@ -29,6 +29,14 @@ namespace GameServer
             cursorPosition = newPos;
 
             ServerSend.PlayerCursorPosition(this);
+
+        }
+
+        public void SetCurrentScene(int newScene)
+        {
+
+            currentScene = newScene;
+            ServerSend.PlayerChangedScene(this);
 
         }
 

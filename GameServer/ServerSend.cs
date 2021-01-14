@@ -157,6 +157,22 @@ namespace GameServer
             };
 
         }*/
+
+        public static void PlayerChangedScene(Player player)
+        {
+
+            using (Packet packet = new Packet((int) ServerPackets.playerChangeScene))
+            {
+                
+             packet.Write(player.id);
+             packet.Write(player.currentScene);
+             
+             SendUDPDataToAll(packet, Server.GetNotLoggedPlayers(true, player.id));
+                
+            };
+
+        }
+        
         public static void PlayerCursorPosition(Player player)
         {
 
@@ -166,7 +182,7 @@ namespace GameServer
                 packet.Write(player.id);
                 packet.Write(player.cursorPosition);
 
-                SendUDPDataToAll(packet, new int[] {player.id});
+                SendUDPDataToAll(packet, Server.GetNotLoggedPlayers(true, player.id));
 
             };
 
