@@ -359,8 +359,9 @@ public class Client : MonoBehaviour
             {(int)ServerPackets.IdleUpdate,ClientHandle.UpdateMana},
             {(int)ServerPackets.LogInFailed,ClientHandle.LoginFailed},
             {(int)ServerPackets.ToLoginScreen,ClientHandle.ToLoginScreen},
-            {(int)ServerPackets.LoginSuccessful, ClientHandle.SpawnPlayer},//TODO CHange spawnPlayer to change scene and login and stuff
+            {(int)ServerPackets.LoginSuccessful, ClientHandle.LoginSuccessful},//TODO CHange spawnPlayer to change scene and login and stuff
             {(int)ServerPackets.playerChangeScene, ClientHandle.PlayerChangedScene},
+            {(int)ServerPackets.SpawnPlayer, ClientHandle.SpawnPlayer}
         };
         Debug.Log("Initialized Packets.");
 

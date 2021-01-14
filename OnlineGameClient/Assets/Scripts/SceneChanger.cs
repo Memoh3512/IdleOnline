@@ -39,6 +39,14 @@ public static class SceneChanger
         
         //Change scene
         SceneManager.LoadScene((int)nextScene);
+        
+        //Update visibility of other players' cursors
+        foreach (var player in GameManager.players.Values)
+        {
+            
+            if (player.id != Client.instance.myID) player.GetComponent<SceneTracker>().CheckVisible((int)nextScene);
+            
+        }
 
     }
 

@@ -18,18 +18,39 @@ public class ClientHandle : MonoBehaviour
         ClientSend.WelcomeReceived();
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
-    
+
+    public static void LoginSuccessful(Packet packet)
+    {
+
+        bool firstTime = packet.ReadBool();
+        
+        //go to proper scene if its first time or not
+        if (firstTime)
+        {
+            
+            //Debug.Log("CHANGING SCENE!!!");
+            SceneChanger.ChangeScene(SceneTypes.TeamSelectionScreen);
+                
+        }
+        else
+        {
+                
+            SceneChanger.ChangeScene(SceneTypes.MageScreen);
+                
+        }
+        
+    }
 
     public static void SpawnPlayer(Packet packet)
     {
 
         int id = packet.ReadInt();
         string username = packet.ReadString();
-        bool firstTime = packet.ReadBool();
+        int currentScene = packet.ReadInt();
 
         Client.instance.isLoggedIn = true;
         
-        GameManager.instance.SpawnPlayer(id, username, firstTime);
+        GameManager.instance.SpawnPlayer(id, username, currentScene);
 
     }
 

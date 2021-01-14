@@ -243,6 +243,41 @@ namespace GameServer
 
         }
 
+        public void SendIntoGame(string username)
+        {
+
+            //player = new Player(id, $"player{id}", new Vector3(0, 0, 0));
+
+            foreach (Client client in Server.clients.Values)
+            {
+
+                if (client.player != null) // si le joueur est connecté
+                {
+
+                    if (client.id != id)
+                    {
+
+                        ServerSend.SpawnPlayer(id, client.player);
+
+                    }
+
+                }
+
+            }
+
+            foreach (Client client in Server.clients.Values)
+            {
+
+                if (client.player != null)
+                {
+
+                    ServerSend.SpawnPlayer(client.id, player);
+
+                }
+
+            }
+        }
+
         public void ToLoginScreen()
         {
 
@@ -255,18 +290,15 @@ namespace GameServer
             
             player = new Player(id, username, Vector3.Zero);
             
-            LogIn();
-            
-            ServerSend.LoginSuccessful(id,username,firstTime);
-            
-        }
-
-        public void LogIn()
-        {
-            
             isLoggedIn = true;
-
+            Console.Write($"Player #{id} Just logged in! Welcome!");
+            
+            SendIntoGame(username);
+            
+            ServerSend.LoginSuccessful(id, firstTime);
+            
         }
+
 
         private void Disconnect()
         {

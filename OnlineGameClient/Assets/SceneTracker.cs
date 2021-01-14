@@ -14,9 +14,25 @@ public class SceneTracker : MonoBehaviour
     {
 
         currentScene = newScene;
+        
+        CheckVisible();
 
+    }
+
+    public void CheckVisible()
+    {
+        
+        //Debug.Log($"Updated cursor Visibilities, Current scene is {SceneManager.GetActiveScene().buildIndex}");
         renderer.enabled = (currentScene == SceneManager.GetActiveScene().buildIndex);
-
+        
+    }
+    
+    public void CheckVisible(int currentScene)
+    {
+        
+        //Debug.Log($"Updated cursor Visibilities, Current scene is {currentScene}");
+        renderer.enabled = (currentScene == this.currentScene);
+        
     }
 
 }

@@ -4,31 +4,31 @@ using System.Text;
 using UnityEngine;
 
 /// <summary>Sent from server to client.</summary>
-    public enum ServerPackets
-    {
-        welcome = 1,
-        playerDisconnected,
-        playerCursorPosition,
-        IdleUpdate,
-        LogInFailed,
-        ToLoginScreen,
-        LoginSuccessful,
-        playerChangeScene,
+public enum ServerPackets
+{
+    welcome = 1,
+    playerDisconnected,
+    playerCursorPosition,
+    SpawnPlayer,
+    IdleUpdate,
+    LogInFailed,
+    ToLoginScreen,
+    LoginSuccessful,
+    playerChangeScene,
 
-    }
+}
 
-
-    /// <summary>Sent from client to server.</summary>
-    public enum ClientPackets
-    {
-        welcomeReceived = 1,
-        Login,
-        playerMovement,
-        BuyManaUpgrade,
-        ManualSave,
-        playerChangeScene,
+/// <summary>Sent from client to server.</summary>
+public enum ClientPackets
+{
+    welcomeReceived = 1,
+    Login,
+    playerMovement,
+    BuyManaUpgrade,
+    ManualSave,
+    playerChangeScene,
         
-    }
+}
 
 public class Packet : IDisposable
 {

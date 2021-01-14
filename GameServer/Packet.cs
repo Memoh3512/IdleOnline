@@ -12,6 +12,7 @@ namespace GameServer
         welcome = 1,
         playerDisconnected,
         playerCursorPosition,
+        SpawnPlayer,
         IdleUpdate,
         LogInFailed,
         ToLoginScreen,

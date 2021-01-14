@@ -127,13 +127,12 @@ namespace GameServer
 
         }
 
-        public static void LoginSuccessful(int toClient,string username, bool firstTime)
+        public static void LoginSuccessful(int toClient, bool firstTime)
         {
 
             using (Packet packet = new Packet((int) ServerPackets.LoginSuccessful))
             {
-                packet.Write(toClient);
-                packet.Write(username);
+                
                 packet.Write(firstTime);
 
                 SendTCPData(toClient, packet);
@@ -142,21 +141,21 @@ namespace GameServer
             
         }
 
-        /*public static void SpawnPlayer(int toClient, Player player)
+        public static void SpawnPlayer(int toClient, Player player)
         {
 
-            using (Packet packet = new Packet((int)ServerPackets.spawnPlayer))
+            using (Packet packet = new Packet((int)ServerPackets.SpawnPlayer))
             {
 
                 packet.Write(player.id);
                 packet.Write(player.username);
-                packet.Write(player.cursorPosition);
+                packet.Write(player.currentScene);
 
                 SendTCPData(toClient, packet);
 
             };
 
-        }*/
+        }
 
         public static void PlayerChangedScene(Player player)
         {
