@@ -8,7 +8,7 @@ public class SceneTracker : MonoBehaviour
 
     public int currentScene;
 
-    public SpriteRenderer renderer;
+    public CanvasGroup canvasGroup;
 
     public void SetCurrentScene(int newScene)
     {
@@ -23,7 +23,7 @@ public class SceneTracker : MonoBehaviour
     {
         
         //Debug.Log($"Updated cursor Visibilities, Current scene is {SceneManager.GetActiveScene().buildIndex}");
-        renderer.enabled = (currentScene == SceneManager.GetActiveScene().buildIndex);
+        canvasGroup.alpha = (currentScene == SceneManager.GetActiveScene().buildIndex) ? 1 : 0;
         
     }
     
@@ -31,7 +31,7 @@ public class SceneTracker : MonoBehaviour
     {
         
         //Debug.Log($"Updated cursor Visibilities, Current scene is {currentScene}");
-        renderer.enabled = (currentScene == this.currentScene);
+        canvasGroup.alpha = (currentScene == this.currentScene) ? 1 : 0;
         
     }
 

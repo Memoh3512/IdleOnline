@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-public class ClientHandle : MonoBehaviour
+public class ClientHandle
 {
     public static void Welcome(Packet packet)
     {
@@ -13,7 +14,7 @@ public class ClientHandle : MonoBehaviour
         int myId = packet.ReadInt();
         
         Debug.Log($"Message from server: {msg}");
-        Client.instance.myID = myId;
+        Client.SetId(myId);
         
         ClientSend.WelcomeReceived();
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
@@ -50,7 +51,7 @@ public class ClientHandle : MonoBehaviour
 
         Client.instance.isLoggedIn = true;
         
-        GameManager.instance.SpawnPlayer(id, username, currentScene);
+        Object.FindObjectOfType<GameManager>().SpawnPlayer(id, username, currentScene);
 
     }
 
@@ -98,7 +99,7 @@ public class ClientHandle : MonoBehaviour
     {
 
         int id = packet.ReadInt();
-        Destroy(GameManager.players[id].gameObject);
+        Object.Destroy(GameManager.players[id].gameObject);
         GameManager.players.Remove(id);
 
     }

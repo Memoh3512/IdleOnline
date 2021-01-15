@@ -15,6 +15,8 @@ namespace GameServer
         private static bool isRunning = false;
 
         public static bool autosaving = true;
+
+        private static bool listeningToCmds = false;
         
         static void Main(string[] args)
         {
@@ -35,6 +37,8 @@ namespace GameServer
 
             //Start Server
             Server.Start(8, 25565);
+
+            listeningToCmds = true;
         }
 
         private static void SetupGameData()
@@ -118,6 +122,13 @@ namespace GameServer
                 }
 
             }
+            
+        }
+
+        private static void CommandsThread()
+        {
+            
+            //while ()//TODO FINISH COMMANDS
             
         }
         

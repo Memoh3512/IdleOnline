@@ -76,6 +76,13 @@ public class Client : MonoBehaviour
 
     }
 
+    public static void SetId(int newId)
+    {
+
+        instance.myID = newId;
+
+    }
+
     public class TCP
     {
 
