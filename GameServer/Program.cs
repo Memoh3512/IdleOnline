@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -16,7 +18,11 @@ namespace GameServer
 
         public static bool autosaving = true;
 
-        private static bool listeningToCmds = false;
+        private static bool listeningToCmds = true;
+        
+        //commands list
+        private delegate void ServerCommand(params string[] args);
+        private static Dictionary<string, ServerCommand> serverCommands = new Dictionary<string, ServerCommand>();
         
         static void Main(string[] args)
         {
@@ -30,15 +36,19 @@ namespace GameServer
             //Main Thread
             Thread mainThread = new Thread(new ThreadStart(MainThread));
             mainThread.Start();
+
+            //Start Server
+            Server.Start(8, 25565);
+            
             
             //Autosave Thread
             Thread autosaveThead = new Thread(new ThreadStart(AutoSaveThread));
             autosaveThead.Start();
-
-            //Start Server
-            Server.Start(8, 25565);
-
-            listeningToCmds = true;
+            
+            //Commands Thread
+            Thread commandsThread = new Thread(new ThreadStart(CommandsThread));
+            commandsThread.Start();
+            
         }
 
         private static void SetupGameData()
@@ -127,9 +137,41 @@ namespace GameServer
 
         private static void CommandsThread()
         {
+
+            //Initialize server commands
+            serverCommands = new Dictionary<string, ServerCommand>()
+            {
+
+                {"SAVE", CommandHandle.Save},
+                {"HELP", CommandHandle.Help}
+
+            };
             
-            //while ()//TODO FINISH COMMANDS
+            //Commands loop
+            while (listeningToCmds)
+            {
+
+                //get input and parse cmd and args
+                string input = Console.ReadLine() ?? "";
+                string cmd = input.Split(" ")[0].ToUpper();
+                string[] args = input.Length == cmd.Length ? new string[]{""} : input.Substring(cmd.Length+1).Split(" ");
             
+                if (serverCommands.ContainsKey(cmd))
+                {
+
+                    Console.WriteLine();
+                    serverCommands[cmd](args);
+
+                }
+                else
+                {
+
+                    CommandHandle.UnknownCommand();
+
+                }
+
+            }
+
         }
         
     }
