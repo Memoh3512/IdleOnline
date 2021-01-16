@@ -285,17 +285,27 @@ namespace GameServer
 
         }
 
-        public void LoginSuccessful(string username, bool firstTime)
+        public void LoginSuccessful(string username, bool firstTime, string password = "")
         {
             
-            player = new Player(id, username, Vector3.Zero);
-            
+            //player = new Player(id, username, Vector3.Zero);
+            player = Program.saveData.NewPlayer(id, username, password);
+
+            //if new user, add and save so it's properly registered
+            if (firstTime)
+            {
+                
+                Program.saveData.users.Add(username, player);
+                Program.saveData.SaveGameData();   
+                
+            }
+
             isLoggedIn = true;
             Console.Write($"Player #{id} Just logged in! Welcome!");
             
             SendIntoGame(username);
             
-            ServerSend.LoginSuccessful(id, firstTime);
+            ServerSend.LoginSuccessful(id, firstTime, player.team);
             
         }
 

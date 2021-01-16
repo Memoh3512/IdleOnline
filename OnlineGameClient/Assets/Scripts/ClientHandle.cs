@@ -24,6 +24,7 @@ public class ClientHandle
     {
 
         bool firstTime = packet.ReadBool();
+        PlayerTypes type = (PlayerTypes)packet.ReadInt();
         
         //go to proper scene if its first time or not
         if (firstTime)
@@ -35,9 +36,21 @@ public class ClientHandle
         }
         else
         {
+            switch (type)
+            {
                 
-            SceneChanger.ChangeScene(SceneTypes.MageScreen);
+                case PlayerTypes.Hunter:
+                    SceneChanger.ChangeScene(SceneTypes.HunterScreen);
+                    break;
+                case PlayerTypes.Mage:
+                    SceneChanger.ChangeScene(SceneTypes.MageScreen);
+                    break;
+                default : 
+                    SceneChanger.ChangeScene(SceneTypes.TeamSelectionScreen);
+                    break;
                 
+            }
+
         }
         
     }

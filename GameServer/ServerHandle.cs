@@ -29,11 +29,11 @@ namespace GameServer
             string username = packet.ReadString();
             string password = packet.ReadString();
 
-            Dictionary<string, string> users = Program.saveData.users;
+            Dictionary<string, Player> users = Program.saveData.users;
             if (users.ContainsKey(username))
             {
 
-                if (users[username] == password)
+                if (users[username].password == password)
                 {
                     
                     Server.clients[fromClient].LoginSuccessful(username,false);
@@ -58,14 +58,10 @@ namespace GameServer
                 }
                 else
                 {
-                    
-                    //new user, add and save so it's properly registered
-                    Program.saveData.users.Add(username, password);
-                    Program.saveData.SaveGameData();
 
                     Console.WriteLine($"New user Connected! Welcome, {username}");
                     //successful login
-                    Server.clients[fromClient].LoginSuccessful(username,true);
+                    Server.clients[fromClient].LoginSuccessful(username,true, password);
                     
                 }
                 

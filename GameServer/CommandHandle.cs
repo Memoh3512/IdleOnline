@@ -37,7 +37,7 @@ namespace GameServer
                     case "SAVE": Console.WriteLine($"Save: saves the game"); break;
                     case "HELP": Console.WriteLine($"Help: displays the list of commands\nHelp <command>: displays help on how to use command"); break;
                     case "STOP": Console.WriteLine($"Stop: closes the server"); break;
-                    
+
                     default: Console.WriteLine($"The command \"{args[0]}\" doesn't exist!"); break;
                     
                 }

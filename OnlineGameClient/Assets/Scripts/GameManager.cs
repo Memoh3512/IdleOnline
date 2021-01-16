@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//idk where to pu this so I'll put it here
+public enum PlayerTypes
+{
+        
+    Undefined = 1, Hunter = 2, Mage = 3
+        
+}
 public class GameManager : MonoBehaviour
 {
-
+    
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
 
     //public GameObject localPlayerCursorPrefab;

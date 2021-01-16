@@ -14,13 +14,14 @@ namespace GameServer
         public DateTime lastSaved = DateTime.Now;
         
         //Username, Password
-        public Dictionary<string, string> users;
+        public Dictionary<string, Player> users;
         
         //Idle-related objects
         public IdleMage idleMage;
 
         public SaveData () {}
         
+        #region FileSaving
         public void SaveGameData()
         {
             
@@ -68,7 +69,7 @@ namespace GameServer
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
                 //loading user credentials
-                users = (Dictionary<string, string>) binaryFormatter.Deserialize(stream);
+                users = (Dictionary<string, Player>) binaryFormatter.Deserialize(stream);
 
                 //loading Mage stuff
                 idleMage = (IdleMage) binaryFormatter.Deserialize(stream);
@@ -96,13 +97,74 @@ namespace GameServer
         public void CreateSaveData()
         {
             
-            users = new Dictionary<string, string>();
+            users = new Dictionary<string, Player>();
             idleMage = new IdleMage();
             
             SaveGameData();
 
         }
 
+        #endregion
+        
+        #region Access
+
+        public Player AssignPlayer( Player ply,PlayerTypes type)
+        {
+
+            switch (type)
+            {
+                
+                case PlayerTypes.Hunter:
+                    return new Hunter(ply);
+                    break;
+                
+                case PlayerTypes.Mage:
+                    return new Mage(ply);
+                    break;
+
+            }
+
+            //if something went wrong
+            Console.WriteLine("Something went wrong when choosing a team, please report to dev thanks ^^!");
+            return ply;
+
+        }
+
+        public Player NewPlayer(int id, string username, string password)
+        {
+            
+            //Check if player exists
+            if (users.ContainsKey(username))
+            {
+
+                return users[username].Connect(id);
+
+            }
+            else
+            {
+                
+                //creates new player with supplied stuff
+                return new Player(id, username, password);
+
+            }
+            
+        }
+
+        public List<Mage> GetAllMages()
+        {
+
+            return users.Values.OfType<Mage>().ToList();
+
+        }
+
+        public List<Hunter> GetAllHunters()
+        {
+
+            return users.Values.OfType<Hunter>().ToList();
+
+        }
+        
+        #endregion
 
     }
 }
