@@ -18,6 +18,7 @@ namespace GameServer
         ToLoginScreen,
         LoginSuccessful,
         playerChangeScene,
+        SpellBought,
 
     }
 

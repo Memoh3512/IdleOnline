@@ -95,6 +95,17 @@ public class ClientHandle
         IdleValues.MaxMana = max;
 
     }
+
+    public static void SpellBought(Packet packet)
+    {
+
+        ManaUpgrades spellType = (ManaUpgrades)packet.ReadInt();
+        string newCost = packet.ReadString();
+        string newValue = packet.ReadString();
+        
+        IdleValues.UpdateSpellDisplay(spellType,newCost,newValue);
+
+    }
     public static void PlayerDisconnected(Packet packet)
     {
 

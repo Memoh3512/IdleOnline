@@ -15,6 +15,7 @@ public enum ServerPackets
     ToLoginScreen,
     LoginSuccessful,
     playerChangeScene,
+    SpellBought,
 
 }
 

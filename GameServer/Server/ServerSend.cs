@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using GameServer.Spells;
 
 namespace GameServer
 {
@@ -213,6 +214,22 @@ namespace GameServer
                 
                 SendUDPDataToAll(packet);
 
+            };
+
+        }
+
+        public static void PlayerBoughtSpell(ManaUpgrades spellType, Spell spell)
+        {
+
+            using (Packet packet = new Packet((int) ServerPackets.SpellBought))
+            {
+                
+                packet.Write((int)spellType);
+                packet.Write(spell.GetCost().ToString());
+                packet.Write(spell.GetValue().ToString());
+                
+                SendTCPDataToAll(packet);
+                
             };
 
         }

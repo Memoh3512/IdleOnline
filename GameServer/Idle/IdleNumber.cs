@@ -40,7 +40,7 @@ public class IdleNumber
     [NonSerialized]
     private static NumberFormatInfo formatInfo = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
     
-    private double decimals;
+    private float decimals;
     private BigInteger number = 0;
 
     public IdleNumber()
@@ -50,12 +50,12 @@ public class IdleNumber
 
     }
 
-    public IdleNumber(double value)
+    public IdleNumber(float value)
     {
 
         formatInfo.NumberGroupSeparator = " ";
         number = (int)value;
-        decimals = value % 1;
+        decimals = value % 1f;
 
     }
     
@@ -179,6 +179,13 @@ public class IdleNumber
         nb.number += toAdd;
 
     }
+
+    public double GetDecimal()
+    {
+
+        return decimals;
+
+    }
     
     #region Operators
 
@@ -199,7 +206,7 @@ public class IdleNumber
 
         IdleNumber result = new IdleNumber();
 
-        if (a < b) return Zero();
+        if (a <= b) return Zero();
 
         result.number = a.number - b.number;
         result.decimals = a.decimals - b.decimals;
@@ -242,7 +249,7 @@ public class IdleNumber
         
 
         if (a.number < b.number) return false;
-        if (a.number >= b.number) return true;
+        if (a.number > b.number) return true;
 
         return a.decimals >= b.decimals;
 
@@ -252,7 +259,7 @@ public class IdleNumber
     {
         
 
-        if (a.number <= b.number) return true;
+        if (a.number < b.number) return true;
         if (a.number > b.number) return false;
 
         return a.decimals <= b.decimals;
@@ -279,7 +286,7 @@ public class IdleNumber
         IdleNumber result = new IdleNumber();
 
         result.number = BigInteger.DivRem(a.number, b, out var rem);
-        result.decimals = (a.decimals / b) + ((double) rem / (double) b); //Convert BigInt to float, might cause problems later...
+        result.decimals = (a.decimals / b) + ((float) rem / (float) b); //Convert BigInt to float, might cause problems later...
 
         return result;
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GameServer.Idle.Spells;
+using GameServer.Spells;
 
 namespace GameServer
 {
@@ -9,7 +11,7 @@ namespace GameServer
     public enum ManaUpgrades
     {
         
-        Upgrade1 = 1,
+        ManaSpell = 1,
         
     }
     [Serializable]
@@ -22,8 +24,7 @@ namespace GameServer
         public IdleNumber ManaPerSecond = IdleNumber.Zero();
         
         //mana Upgrade #1
-        IdleNumber U1PerSecBoost = new IdleNumber(1);
-        private IdleNumber U1Cost = new IdleNumber(10);
+        private SpellOfMana manaSpell = new SpellOfMana();
 
         public void Update()
         {
@@ -40,16 +41,18 @@ namespace GameServer
             switch (upgradeType)
             {
                 
-                case ManaUpgrades.Upgrade1:
+                case ManaUpgrades.ManaSpell:
 
-                    if (CheckCost(U1Cost))
+                    if (CheckCost(manaSpell.GetCost()))
                     {
                         
-                        BuyU1();
+                        manaSpell.Buy();
+                        
+                        ServerSend.PlayerBoughtSpell(upgradeType, manaSpell);
+                        
                         return true;
 
                     }
-                    
                     break;
                 
             }
@@ -58,21 +61,12 @@ namespace GameServer
 
         }
 
-        public bool CheckCost(IdleNumber Cost)
+        public bool CheckCost(IdleNumber cost)
         {
 
-            return Mana >= Cost;
+            return Mana >= cost;
 
         }
-
-        public void BuyU1()
-        {
-
-            Mana -= U1Cost;
-            ManaPerSecond += U1PerSecBoost;
-
-        }
-
 
     }
 }

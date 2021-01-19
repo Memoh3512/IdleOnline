@@ -375,7 +375,8 @@ public class Client : MonoBehaviour
             {(int)ServerPackets.ToLoginScreen,ClientHandle.ToLoginScreen},
             {(int)ServerPackets.LoginSuccessful, ClientHandle.LoginSuccessful},//TODO CHange spawnPlayer to change scene and login and stuff
             {(int)ServerPackets.playerChangeScene, ClientHandle.PlayerChangedScene},
-            {(int)ServerPackets.SpawnPlayer, ClientHandle.SpawnPlayer}
+            {(int)ServerPackets.SpawnPlayer, ClientHandle.SpawnPlayer},
+            {(int)ServerPackets.SpellBought, ClientHandle.SpellBought}
         };
         Debug.Log("Initialized Packets.");
 

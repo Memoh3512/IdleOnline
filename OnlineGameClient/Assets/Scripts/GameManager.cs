@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     /// <param name="spawnPos"></param>
     public void SpawnPlayer(int id, string username, int currentScene)
     {
-        //Debug.Log($"TRYING TO SPAWN PLAYER #{id}");
+        
         GameObject player;
         if (id == Client.GetMyId()) // si c'est le joueur local
         {

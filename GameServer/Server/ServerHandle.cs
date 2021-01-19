@@ -118,7 +118,7 @@ namespace GameServer
 
             Vector3 newPosition = packet.ReadVector3();
 
-            Server.clients[fromClient].player.SetCursorPosition(newPosition);
+            Server.clients[fromClient]?.player?.SetCursorPosition(newPosition); //The ? might fix the random server crash, but I'm not sure. If this reproduces, remove them I guess
 
         }
 
@@ -136,7 +136,7 @@ namespace GameServer
             else
             {
                 
-                Console.WriteLine($"Player #{fromClient} tried to buy Mana upgrade {Enum.GetName(typeof(ManaUpgrades),upgrade)}, but doesnt't have enough mana!");
+                Console.WriteLine($"Player #{fromClient} tried to buy Mana upgrade {Enum.GetName(typeof(ManaUpgrades),upgrade)}, but doesn't have enough mana!");
                 
             }
 
