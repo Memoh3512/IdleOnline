@@ -69,6 +69,20 @@ namespace GameServer
 
         }
 
+        public static void RequestUIUpdate(int fromClient, Packet packet)
+        {
+
+            int id = packet.ReadInt();
+
+            if (fromClient == id)
+            {
+
+                ServerSend.SendUIData(fromClient);
+
+            }
+
+        }
+
         public static void PlayerChangedScene(int fromClient, Packet packet)
         {
 

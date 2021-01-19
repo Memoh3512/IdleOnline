@@ -142,6 +142,25 @@ namespace GameServer
             
         }
 
+        public static void SendUIData(int toClient)
+        {
+
+            //Sending two packets, one for hunters and one for mages
+            //magePacket
+            using (Packet packet = new Packet((int) ServerPackets.RequestUIUpdate))
+            {
+
+                //ManaSpell
+                packet.Write(Program.saveData.idleMage.manaSpell.GetCost().ToString());
+                packet.Write(Program.saveData.idleMage.manaSpell.GetValue().ToString());
+                
+                //Send packet
+                SendTCPData(toClient, packet);
+
+            }
+            
+        }
+
         public static void SpawnPlayer(int toClient, Player player)
         {
 
@@ -221,6 +240,7 @@ namespace GameServer
         public static void PlayerBoughtSpell(ManaUpgrades spellType, Spell spell)
         {
 
+            Console.WriteLine($"SPELL COST: {spell.GetCost().ToString()}");
             using (Packet packet = new Packet((int) ServerPackets.SpellBought))
             {
                 

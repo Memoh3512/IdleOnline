@@ -53,6 +53,20 @@ public class ClientSend : MonoBehaviour
 
     }
 
+    public static void RequestUIUpdate()
+    {
+
+        using (Packet packet = new Packet((int) ClientPackets.RequestUIUpdate))
+        {
+            
+            packet.Write(Client.GetMyId());
+            
+            SendTCPData(packet);
+            
+        }
+        
+    }
+
     public static void ChangedScene(int newScene)
     {
 

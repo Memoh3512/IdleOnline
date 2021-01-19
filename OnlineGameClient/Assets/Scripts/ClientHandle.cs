@@ -40,6 +40,8 @@ public class ClientHandle
             
         }
 
+        ClientSend.RequestUIUpdate();
+
     }
 
     public static void SpawnPlayer(Packet packet)
@@ -52,6 +54,14 @@ public class ClientHandle
         Client.instance.isLoggedIn = true;
         
         Object.FindObjectOfType<GameManager>().SpawnPlayer(id, username, currentScene);
+
+    }
+
+    public static void RequestedUIUpdate(Packet packet)
+    {
+
+        IdleValues.ManaSpell.cost = packet.ReadString();
+        IdleValues.ManaSpell.value = packet.ReadString();
 
     }
 

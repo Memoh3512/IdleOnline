@@ -16,6 +16,7 @@ public enum ServerPackets
     LoginSuccessful,
     playerChangeScene,
     SpellBought,
+    RequestUIUpdate,
 
 }
 
@@ -29,6 +30,7 @@ public enum ClientPackets
     ManualSave,
     playerChangeScene,
     playerChoseTeam,
+    RequestUIUpdate,
         
 }
 

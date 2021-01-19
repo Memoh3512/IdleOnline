@@ -19,6 +19,7 @@ namespace GameServer
         LoginSuccessful,
         playerChangeScene,
         SpellBought,
+        RequestUIUpdate,
 
     }
 
@@ -32,6 +33,7 @@ namespace GameServer
         ManualSave,
         playerChangeScene,
         playerChoseTeam,
+        RequestUIUpdate,
         
     }
 

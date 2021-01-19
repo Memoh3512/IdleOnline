@@ -32,10 +32,9 @@ public class ManaUpgradeButton : MonoBehaviour
 
     private void UpdateDisplay()
     {
-
-        if (text.text.Contains(IdleValues.ManaSpell.cost)) return;
-        text.text = $"Spell of Mana\nCosts {IdleValues.ManaSpell.cost} Mana";
-        Debug.Log("SOME PLAYER BOUGHT MANA SPELL!!!!");
+        
+        text.text = $"Spell of Mana (+{IdleValues.ManaSpell.value}/s)\nCosts {IdleValues.ManaSpell.cost} Mana";
+        //Debug.Log("SOME PLAYER BOUGHT MANA SPELL!!!!");
 
     }
 

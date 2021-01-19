@@ -159,6 +159,7 @@ namespace GameServer
                 {(int)ClientPackets.ManualSave, ServerHandle.ManualSave},
                 {(int)ClientPackets.playerChangeScene, ServerHandle.PlayerChangedScene},
                 {(int)ClientPackets.playerChoseTeam, ServerHandle.PlayerChoseTeam},
+                {(int)ClientPackets.RequestUIUpdate, ServerHandle.RequestUIUpdate},
 
             };
             Console.WriteLine("Initialized packets.");

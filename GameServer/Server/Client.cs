@@ -292,7 +292,7 @@ namespace GameServer
             player = Program.saveData.NewPlayer(id, username, password);
             
             isLoggedIn = true;
-            Console.Write($"Player #{id} Just logged in! Welcome!");
+            Console.WriteLine($"Player #{id} Just logged in! Welcome!");
             
             SendIntoGame(username);
             

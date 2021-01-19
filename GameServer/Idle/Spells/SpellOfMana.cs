@@ -7,6 +7,8 @@ namespace GameServer.Idle.Spells
     [Serializable]
     public class SpellOfMana : Spell
     {
+        private bool firstBuy = true;
+        
         public SpellOfMana() : base("Spell of Mana", IdleNumber.Zero(), new IdleNumber(0.1f))
         {
         }
@@ -17,7 +19,16 @@ namespace GameServer.Idle.Spells
 
             Program.saveData.idleMage.ManaPerSecond += value;
             Console.WriteLine($"DECIMAL IS {Program.saveData.idleMage.ManaPerSecond.GetDecimal()}");
-            cost *= 2;
+
+            if (firstBuy)
+            {
+                firstBuy = false;
+                cost += new IdleNumber(0.1f);
+            }
+            else
+            {
+                cost *= 2;
+            }
 
         }
         

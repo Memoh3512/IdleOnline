@@ -24,7 +24,7 @@ namespace GameServer
         public IdleNumber ManaPerSecond = IdleNumber.Zero();
         
         //mana Upgrade #1
-        private SpellOfMana manaSpell = new SpellOfMana();
+        public SpellOfMana manaSpell = new SpellOfMana();
 
         public void Update()
         {
