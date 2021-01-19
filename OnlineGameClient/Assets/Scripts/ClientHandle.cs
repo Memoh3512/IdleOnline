@@ -22,37 +22,24 @@ public class ClientHandle
 
     public static void LoginSuccessful(Packet packet)
     {
-
-        bool firstTime = packet.ReadBool();
-        PlayerTypes type = (PlayerTypes)packet.ReadInt();
         
-        //go to proper scene if its first time or not
-        if (firstTime)
+        PlayerTypes type = (PlayerTypes)packet.ReadInt();
+
+        switch (type)
         {
             
-            //Debug.Log("CHANGING SCENE!!!");
-            SceneChanger.ChangeScene(SceneTypes.TeamSelectionScreen);
-                
+            case PlayerTypes.Hunter:
+                SceneChanger.ChangeScene(SceneTypes.HunterScreen);
+                break;
+            case PlayerTypes.Mage:
+                SceneChanger.ChangeScene(SceneTypes.MageScreen);
+                break;
+            default : 
+                SceneChanger.ChangeScene(SceneTypes.TeamSelectionScreen);
+                break;
+            
         }
-        else
-        {
-            switch (type)
-            {
-                
-                case PlayerTypes.Hunter:
-                    SceneChanger.ChangeScene(SceneTypes.HunterScreen);
-                    break;
-                case PlayerTypes.Mage:
-                    SceneChanger.ChangeScene(SceneTypes.MageScreen);
-                    break;
-                default : 
-                    SceneChanger.ChangeScene(SceneTypes.TeamSelectionScreen);
-                    break;
-                
-            }
 
-        }
-        
     }
 
     public static void SpawnPlayer(Packet packet)

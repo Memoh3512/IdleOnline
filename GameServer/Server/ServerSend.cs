@@ -127,13 +127,12 @@ namespace GameServer
 
         }
 
-        public static void LoginSuccessful(int toClient, bool firstTime, PlayerTypes team)
+        public static void LoginSuccessful(int toClient, PlayerTypes team)
         {
 
             using (Packet packet = new Packet((int) ServerPackets.LoginSuccessful))
             {
                 
-                packet.Write(firstTime);
                 packet.Write((int)team);
 
                 SendTCPData(toClient, packet);

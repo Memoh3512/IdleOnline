@@ -36,7 +36,7 @@ namespace GameServer
                 if (users[username].password == password)
                 {
                     
-                    Server.clients[fromClient].LoginSuccessful(username,false);
+                    Server.clients[fromClient].LoginSuccessful(username);
                     
                 }
                 else
@@ -61,7 +61,7 @@ namespace GameServer
 
                     Console.WriteLine($"New user Connected! Welcome, {username}");
                     //successful login
-                    Server.clients[fromClient].LoginSuccessful(username,true, password);
+                    Server.clients[fromClient].LoginSuccessful(username, password);
                     
                 }
                 
@@ -76,6 +76,34 @@ namespace GameServer
 
             Server.clients[fromClient].player.SetCurrentScene(newScene);
 
+        }
+
+        public static void PlayerChoseTeam(int fromClient, Packet packet)
+        {
+
+            PlayerTypes team = (PlayerTypes) packet.ReadInt();
+
+            switch (team)
+            {
+                
+                case PlayerTypes.Hunter:
+                    Server.clients[fromClient].player = new Hunter(Server.clients[fromClient].player);
+                    break;
+                
+                case PlayerTypes.Mage:
+                    Server.clients[fromClient].player = new Mage(Server.clients[fromClient].player);
+                    break;
+
+            }
+
+            Server.clients[fromClient].player.team = team;
+            
+            //update users in save file, TODO might not be necessary to save, but might be nice
+            Program.saveData.users[Server.clients[fromClient].player.username] = Server.clients[fromClient].player;
+            //Program.saveData.SaveGameData();
+
+            Console.WriteLine($"Assigning Client #{fromClient} the team {Enum.GetName(typeof(PlayerTypes),team)}. The player type is now {Server.clients[fromClient].player.GetType()}");
+            
         }
         
         public static void ManualSave(int fromClient, Packet packet)

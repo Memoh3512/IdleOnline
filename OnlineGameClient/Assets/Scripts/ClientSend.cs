@@ -67,6 +67,20 @@ public class ClientSend : MonoBehaviour
 
     }
 
+    public static void PlayerChoseTeam(PlayerTypes team)
+    {
+
+        using (Packet packet = new Packet((int) ClientPackets.playerChoseTeam))
+        {
+            
+            packet.Write((int)team);
+            
+            SendTCPData(packet);
+            
+        }
+        
+    }
+
     public static void ManualSave()
     {
 

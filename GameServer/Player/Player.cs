@@ -7,6 +7,7 @@ using System.Text;
 namespace GameServer
 {
 
+    [Serializable]
     public enum PlayerTypes
     {
         
@@ -18,7 +19,9 @@ namespace GameServer
     public class Player //This class is the representation of the player cursor and where the player is scene-wise
     {
 
+        [NonSerialized] //dont serialize the id since it may change every time a player disconnects
         public int id;
+        
         public string username;
         public string password;
         public PlayerTypes team = PlayerTypes.Undefined;

@@ -107,29 +107,7 @@ namespace GameServer
         #endregion
         
         #region Access
-
-        public Player AssignPlayer( Player ply,PlayerTypes type)
-        {
-
-            switch (type)
-            {
-                
-                case PlayerTypes.Hunter:
-                    return new Hunter(ply);
-                    break;
-                
-                case PlayerTypes.Mage:
-                    return new Mage(ply);
-                    break;
-
-            }
-
-            //if something went wrong
-            Console.WriteLine("Something went wrong when choosing a team, please report to dev thanks ^^!");
-            return ply;
-
-        }
-
+        
         public Player NewPlayer(int id, string username, string password)
         {
             
@@ -143,8 +121,13 @@ namespace GameServer
             else
             {
                 
-                //creates new player with supplied stuff
-                return new Player(id, username, password);
+                //creates new player with supplied stuff, then adds it to players and saves it so its registered
+                Player newPly =  new Player(id, username, password);
+                
+                users.Add(username, newPly);
+                SaveGameData();
+
+                return newPly;
 
             }
             

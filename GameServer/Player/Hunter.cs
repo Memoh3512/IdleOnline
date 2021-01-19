@@ -1,7 +1,9 @@
+using System;
 using System.Numerics;
 
 namespace GameServer
 {
+    [Serializable]
     public class Hunter : Player
     {
 
@@ -15,8 +17,6 @@ namespace GameServer
         //convert basic Player object to specific Hunter, choosing team
         public Hunter(Player ply) : base(ply.id, ply.username, ply.password, ply.cursorPosition)
         {
-
-            ply = null;
 
         }
 

@@ -27,6 +27,7 @@ public enum ClientPackets
     BuyManaUpgrade,
     ManualSave,
     playerChangeScene,
+    playerChoseTeam,
         
 }
 

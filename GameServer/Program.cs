@@ -143,7 +143,8 @@ namespace GameServer
             {
 
                 {"SAVE", CommandHandle.Save},
-                {"HELP", CommandHandle.Help}
+                {"HELP", CommandHandle.Help},
+                {"STOP", CommandHandle.StopServer}
 
             };
             

@@ -157,7 +157,8 @@ namespace GameServer
                 {(int)ClientPackets.BuyManaUpgrade, ServerHandle.BuyManaUpgrade},
                 {(int)ClientPackets.Login, ServerHandle.Login},
                 {(int)ClientPackets.ManualSave, ServerHandle.ManualSave},
-                {(int)ClientPackets.playerChangeScene, ServerHandle.PlayerChangedScene}
+                {(int)ClientPackets.playerChangeScene, ServerHandle.PlayerChangedScene},
+                {(int)ClientPackets.playerChoseTeam, ServerHandle.PlayerChoseTeam},
 
             };
             Console.WriteLine("Initialized packets.");

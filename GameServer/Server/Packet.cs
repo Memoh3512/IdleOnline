@@ -30,6 +30,7 @@ namespace GameServer
         BuyManaUpgrade,
         ManualSave,
         playerChangeScene,
+        playerChoseTeam,
         
     }
 

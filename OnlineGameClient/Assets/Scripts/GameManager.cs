@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//idk where to pu this so I'll put it here
+//idk where to put this so I'll put it here
+[Serializable]
 public enum PlayerTypes
 {
         

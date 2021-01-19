@@ -12,13 +12,7 @@ namespace GameServer
 
             foreach (Client client in Server.clients.Values)
             {
-
-                if (client.player != null)
-                {
-
-                    client.player.Update();
-
-                }
+                client.player?.Update();
 
             }
 

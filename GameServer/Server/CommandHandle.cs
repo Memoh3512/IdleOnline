@@ -46,6 +46,16 @@ namespace GameServer
             
         }
 
+        public static void StopServer(params string[] args)
+        {
+            
+            //TODO close server in a safer way
+            Console.WriteLine("Closing server...");
+            Environment.Exit(10);
+            
+            
+        }
+
         public static void UnknownCommand()
         {
             
