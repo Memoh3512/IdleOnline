@@ -39,7 +39,10 @@ public class ClientHandle
                 break;
             
         }
-
+        
+        //change player cursor based on team
+        GameManager.players[Client.GetMyId()].GetComponent<PlayerCursorController>().SetCursorSprite(type);
+        
         ClientSend.RequestUIUpdate();
 
     }
